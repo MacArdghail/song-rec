@@ -30,11 +30,11 @@ app.get("/test-db", async (req, res) => {
     const db = client.db("songrec");
     const doc = await db.collection("test").findOne();
 
-    if (!doc?.["test-message"]) {
-      return res.status(404).json({ message: "test-message not found" });
+    if (!doc?.["testMessage"]) {
+      return res.status(404).json({ message: "testMessage not found" });
     }
 
-    res.status(200).json({ "test-message": doc["test-message"] });
+    res.status(200).json({ testMessage: doc["testMessage"] });
   } catch (error) {
     console.error("Error in /test-db:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
