@@ -18,10 +18,7 @@ let cachedClient = null;
 const mongoConnect = async () => {
   if (cachedClient) return cachedClient;
   const mongoUri = process.env.MONGODB_URI;
-  const client = await MongoClient.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  const client = await MongoClient.connect(mongoUri);
   cachedClient = client;
   return client;
 };
