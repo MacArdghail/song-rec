@@ -3,56 +3,40 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const { MongoClient } = require("mongodb");
+const cookieParser = require("cookie-parser");
+
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:4200",
+  "https://song-rec-5zl4.vercel.app",
+];
+
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
 app.use(helmet());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 500 }));
+app.use(cookieParser());
+app.use(express.json());
 
-// MongoDB
-let cachedClient = null;
-
-const mongoConnect = async () => {
-  if (cachedClient) return cachedClient;
-  const mongoUri = process.env.MONGODB_URI;
-  const client = await MongoClient.connect(mongoUri);
-  cachedClient = client;
-  return client;
-};
-
-// Test db connection route
-app.get("/test-db", async (req, res) => {
-  try {
-    const client = await mongoConnect();
-    const db = client.db("songrec");
-    const doc = await db.collection("test").findOne();
-
-    if (!doc?.["testMessage"]) {
-      return res.status(404).json({ message: "testMessage not found" });
-    }
-
-    res.status(200).json({ testMessage: doc["testMessage"] });
-  } catch (error) {
-    console.error("Error in /test-db:", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+// Routes
+app.use("/", authRoutes);
 
 app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    timestamp: new Date().toISOString(),
-  });
-});
-
-// Shutdown
-process.on("SIGINT", async () => {
-  if (cachedClient) await cachedClient.close();
-  console.log("MongoDB connection closed. Exiting...");
-  process.exit(0);
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 const PORT = process.env.PORT || 3000;
