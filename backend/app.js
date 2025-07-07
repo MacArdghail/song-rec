@@ -6,7 +6,8 @@ const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
 
 const authRoutes = require("./routes/auth");
-
+const spotifyRoutes = require("./routes/spotify");
+const playlistRoutes = require("./routes/playlist");
 const app = express();
 
 const allowedOrigins = [
@@ -34,6 +35,8 @@ app.use(express.json());
 
 // Routes
 app.use("/", authRoutes);
+app.use("/spotify", spotifyRoutes);
+app.use("/playlist", playlistRoutes);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
