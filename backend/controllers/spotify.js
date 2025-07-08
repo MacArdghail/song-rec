@@ -125,7 +125,7 @@ exports.recentlyPlayed = async (req, res, next) => {
         .sort((a, b) => b.count - a.count)
         .slice(0, 8);
 
-      console.log(trackMap);
+      //   console.log(trackMap);
 
       return res.json(sortedTracks);
     } catch (err) {
