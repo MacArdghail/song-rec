@@ -1,6 +1,7 @@
 const { mongoConnect } = require("../utils/mongo");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
+const { resend, sendEmail } = require("../utils/email");
 const { refreshAccessToken } = require("../utils/refreshToken");
 
 exports.sendRecommendation = async (req, res) => {
@@ -8,9 +9,7 @@ exports.sendRecommendation = async (req, res) => {
   const { playlist_id, track_id, message } = req.query;
 
   if (typeof message !== "string" || message.length > 140) {
-    return res.status(400).json({
-      message: "Invalid message",
-    });
+    return res.status(400).json({ message: "Invalid message" });
   }
 
   try {
@@ -36,8 +35,6 @@ exports.sendRecommendation = async (req, res) => {
       return res.status(404).json({ message: "Sender not found" });
     }
 
-    const senderDisplayName = sender.display_name;
-
     try {
       await axios.post(
         `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
@@ -50,10 +47,12 @@ exports.sendRecommendation = async (req, res) => {
         },
       );
     } catch (err) {
-      const accessToken = refreshAccessToken(
+      console.log("Access token may be expired. Refreshing...");
+      const accessToken = await refreshAccessToken(
         recipient.spotify_id,
-        recipient.refreh_token,
+        recipient.refresh_token,
       );
+
       try {
         await axios.post(
           `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
@@ -67,13 +66,10 @@ exports.sendRecommendation = async (req, res) => {
         );
       } catch (retryErr) {
         console.log("Spotify API error after retry:", retryErr);
-        return res.status(500).json({ message: "Failed to create playlist" });
+        return res
+          .status(500)
+          .json({ message: "Failed to add track to playlist" });
       }
-
-      console.error("Failed to add track:", err?.response?.data || err.message);
-      return res
-        .status(400)
-        .json({ message: "Failed to add track to playlist" });
     }
 
     await recommendations.insertOne({
@@ -85,6 +81,23 @@ exports.sendRecommendation = async (req, res) => {
       message,
       sentAt: new Date(),
     });
+
+    try {
+      await sendEmail({
+        to: recipient.email,
+        subject: `${sender.display_name} sent you a song 🎶`,
+        html: `
+                <p>${sender.display_name} sent you song: ${track_id}</p>
+                <p>With message: ${message}</p>
+                <p><a href="https://open.spotify.com/track/${track_id}" target="_blank">Listen on Spotify</a></p>
+                <hr />
+                <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
+            `,
+      });
+      console.log("Email sent successfully");
+    } catch (err) {
+      console.error("Failed to send email", err);
+    }
 
     res.status(200).json({ message: "Recommendation sent successfully" });
   } catch (err) {
@@ -116,11 +129,36 @@ exports.react = async (req, res) => {
     const recommendations = db.collection("recommendations");
     const users = db.collection("spotify_users");
 
-    const result = await recommendations.updateOne(
-      { recommendation_id },
-      { $set: { emoji } },
-    );
-    res.status(200).json({ message: "successful" });
+    const recommendation = await recommendations.findOne({ recommendation_id });
+
+    if (!recommendation) {
+      return res.status(404).json({ message: "Recommendation not found" });
+    }
+
+    const recipient = await users.findOne({
+      spotify_id: recommendation.sender_spotify_id,
+    });
+
+    const sender = await users.findOne({ spotify_id: senderId });
+
+    await recommendations.updateOne({ recommendation_id }, { $set: { emoji } });
+
+    try {
+      await sendEmail({
+        to: recipient.email,
+        subject: `${sender.display_name} reacted to your recommendation`,
+        html: `
+                <p>${sender.display_name} reacted to your recommendation with: ${emoji}</p>
+                <hr />
+                <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
+            `,
+      });
+      console.log("Email sent successfully");
+    } catch (err) {
+      console.error("Failed to send email", err);
+    }
+
+    res.status(200).json({ message: "Reaction sent successfully" });
   } catch (err) {
     console.error("Error in reacting", err);
     res.status(500).json({ message: "Failed to react" });

@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const spotifyRoutes = require("./routes/spotify");
 const playlistRoutes = require("./routes/playlist");
+const recommendationRoutes = require("./routes/recommendation");
 const app = express();
 
 const allowedOrigins = [
@@ -37,6 +38,7 @@ app.use(express.json());
 app.use("/", authRoutes);
 app.use("/spotify", spotifyRoutes);
 app.use("/playlist", playlistRoutes);
+app.use("/recommendation", recommendationRoutes);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
