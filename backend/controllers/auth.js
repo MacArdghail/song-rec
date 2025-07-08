@@ -98,7 +98,7 @@ exports.spotifyCallback = async (req, res, next) => {
     res.redirect("http://localhost:4200/me");
   } catch (err) {
     if (err.response) {
-      console.error("Spotify token error:", err.response.data); // this is the key
+      console.error("Spotify token error:", err.response.data);
     } else {
       console.error("Unexpected error:", err.message);
     }

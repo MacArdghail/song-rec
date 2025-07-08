@@ -1,16 +1,15 @@
 const { mongoConnect } = require("../utils/mongo");
 const axios = require("axios");
+const { refreshAccessToken } = require("../utils/refreshToken");
 
 exports.createPlaylist = async (req, res, next) => {
   try {
     const spotify_id = req.user.spotify_id;
     let { name, description } = req.body;
 
-    // Set defaults if missing
     name = name || "Untitled Playlist";
     description = description || "";
 
-    // Validate inputs
     if (
       typeof name !== "string" ||
       name.length > 50 ||
@@ -32,14 +31,10 @@ exports.createPlaylist = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const playlistData = {
-      name,
-      description,
-    };
-
+    const playlistData = { name, description };
     let token = user.access_token;
-
     let response;
+
     try {
       response = await axios.post(
         `https://api.spotify.com/v1/users/${spotify_id}/playlists`,
@@ -52,10 +47,23 @@ exports.createPlaylist = async (req, res, next) => {
         },
       );
     } catch (err) {
-      console.error("Spotify API error:", err.response?.data || err.message);
-      return res
-        .status(500)
-        .json({ message: "Failed to create playlist on Spotify" });
+      console.log("Token might be expired, refreshing...");
+      const newToken = await refreshAccessToken(spotify_id, user.refresh_token);
+      try {
+        response = await axios.post(
+          `https://api.spotify.com/v1/users/${spotify_id}/playlists`,
+          playlistData,
+          {
+            headers: {
+              Authorization: `Bearer ${newToken}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      } catch (retryErr) {
+        console.log("Spotify API error after retry:", retryErr);
+        return res.status(500).json({ message: "Failed to create playlist" });
+      }
     }
 
     if (!response || !response.data || !response.data.id) {
@@ -70,8 +78,8 @@ exports.createPlaylist = async (req, res, next) => {
       created_at: new Date(),
     };
 
-    const result = await db.collection("playlists").insertOne(newPlaylist);
-    res.status(201).json({ message: "playlist created successfully" });
+    await db.collection("playlists").insertOne(newPlaylist);
+    res.status(201).json({ message: "Playlist created successfully" });
   } catch (err) {
     next(err);
   }
@@ -79,10 +87,9 @@ exports.createPlaylist = async (req, res, next) => {
 
 exports.recentlyPlayed = async (req, res, next) => {
   const spotify_id = req.user.spotify_id;
-  let client;
 
   try {
-    client = await mongoConnect();
+    const client = await mongoConnect();
     const db = client.db("songrec");
 
     const user = await db.collection("spotify_users").findOne({ spotify_id });
@@ -91,10 +98,11 @@ exports.recentlyPlayed = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const accessToken = user.access_token;
+    let accessToken = user.access_token;
+    let recentlyPlayedResponse;
 
     try {
-      const recentlyPlayedResponse = await axios.get(
+      recentlyPlayedResponse = await axios.get(
         "https://api.spotify.com/v1/me/player/recently-played",
         {
           headers: {
@@ -105,35 +113,55 @@ exports.recentlyPlayed = async (req, res, next) => {
           },
         },
       );
-
-      const items = recentlyPlayedResponse.data.items;
-
-      const trackMap = new Map();
-
-      for (const item of items) {
-        const track = item.track;
-        const trackId = track.id;
-
-        if (!trackMap.has(trackId)) {
-          trackMap.set(trackId, { track, count: 1 });
-        } else {
-          trackMap.get(trackId).count += 1;
-        }
-      }
-
-      const sortedTracks = Array.from(trackMap.values())
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 8);
-
-      //   console.log(trackMap);
-
-      return res.json(sortedTracks);
     } catch (err) {
-      console.error("Spotify API error:", err.response?.data || err.message);
-      return res
-        .status(401)
-        .json({ message: "Spotify token may be expired or invalid" });
+      console.warn("Access token may be expired, refreshing...");
+
+      const newToken = await refreshAccessToken(spotify_id, user.refresh_token);
+      accessToken = newToken;
+
+      try {
+        recentlyPlayedResponse = await axios.get(
+          "https://api.spotify.com/v1/me/player/recently-played",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+              limit: 50,
+            },
+          },
+        );
+      } catch (retryErr) {
+        console.error(
+          "Spotify API error after retry:",
+          retryErr.response?.data || retryErr.message,
+        );
+        return res
+          .status(401)
+          .json({ message: "Failed to fetch recently played from Spotify" });
+      }
     }
+
+    const items = recentlyPlayedResponse.data.items;
+
+    const trackMap = new Map();
+
+    for (const item of items) {
+      const track = item.track;
+      const trackId = track.id;
+
+      if (!trackMap.has(trackId)) {
+        trackMap.set(trackId, { track, count: 1 });
+      } else {
+        trackMap.get(trackId).count += 1;
+      }
+    }
+
+    const sortedTracks = Array.from(trackMap.values())
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 8);
+
+    return res.json(sortedTracks);
   } catch (err) {
     console.error("Server error during recently played:", err);
     return res
@@ -150,10 +178,8 @@ exports.searchSong = async (req, res, next) => {
     return res.status(400).json({ message: "Missing search query" });
   }
 
-  let client;
-
   try {
-    client = await mongoConnect();
+    const client = await mongoConnect();
     const db = client.db("songrec");
 
     const user = await db.collection("spotify_users").findOne({ spotify_id });
@@ -162,12 +188,30 @@ exports.searchSong = async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const accessToken = user.access_token;
+    let accessToken = user.access_token;
+    let searchResponse;
 
     try {
-      const searchResponse = await axios.get(
-        "https://api.spotify.com/v1/search",
-        {
+      searchResponse = await axios.get("https://api.spotify.com/v1/search", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          q: search_query,
+          type: "track",
+          limit: 10,
+        },
+      });
+
+      return res.json(searchResponse.data);
+    } catch (err) {
+      console.warn("Access token may be expired, refreshing...");
+
+      const newToken = await refreshAccessToken(spotify_id, user.refresh_token);
+      accessToken = newToken;
+
+      try {
+        searchResponse = await axios.get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -176,15 +220,16 @@ exports.searchSong = async (req, res, next) => {
             type: "track",
             limit: 10,
           },
-        },
-      );
+        });
 
-      return res.json(searchResponse.data);
-    } catch (err) {
-      console.error("Spotify token error:", err.response?.data || err.message);
-      return res
-        .status(401)
-        .json({ message: "Spotify access token expired or invalid" });
+        return res.json(searchResponse.data);
+      } catch (retryErr) {
+        console.error(
+          "Spotify API error after retry:",
+          retryErr.response?.data || retryErr.message,
+        );
+        return res.status(401).json({ message: "Failed to search songs" });
+      }
     }
   } catch (err) {
     console.error("Server error during song search:", err);

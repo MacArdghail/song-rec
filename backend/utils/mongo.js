@@ -13,12 +13,7 @@ exports.mongoConnect = async () => {
   }
 
   try {
-    const client = new MongoClient(mongoUri, {
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
-      retryWrites: true,
-      readPreference: "primaryPreferred",
-    });
+    const client = new MongoClient(mongoUri);
 
     await client.connect();
     cachedClient = client;

@@ -1,6 +1,7 @@
 const { mongoConnect } = require("../utils/mongo");
 const { v4: uuidv4 } = require("uuid");
 const axios = require("axios");
+const { refreshAccessToken } = require("../utils/refreshToken");
 
 exports.sendRecommendation = async (req, res) => {
   const sender_spotify_id = req.user.spotify_id;
@@ -43,12 +44,32 @@ exports.sendRecommendation = async (req, res) => {
         { uris: [`spotify:track:${track_id}`] },
         {
           headers: {
-            Authorization: `Bearer ${recipient.access_token}`, // assumes recipient's token is needed
+            Authorization: `Bearer ${recipient.access_token}`,
             "Content-Type": "application/json",
           },
         },
       );
     } catch (err) {
+      const accessToken = refreshAccessToken(
+        recipient.spotify_id,
+        recipient.refreh_token,
+      );
+      try {
+        await axios.post(
+          `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
+          { uris: [`spotify:track:${track_id}`] },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      } catch (retryErr) {
+        console.log("Spotify API error after retry:", retryErr);
+        return res.status(500).json({ message: "Failed to create playlist" });
+      }
+
       console.error("Failed to add track:", err?.response?.data || err.message);
       return res
         .status(400)
