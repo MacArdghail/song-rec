@@ -30,7 +30,7 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 500 }));
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 250 }));
 app.use(cookieParser());
 app.use(express.json());
 
