@@ -7,7 +7,7 @@ exports.createPlaylist = async (req, res, next) => {
     const spotify_id = req.user.spotify_id;
     let { name, description } = req.body;
 
-    name = name || "Untitled Playlist";
+    name = name || "send my recommendations ✌️";
     description = description || "";
 
     if (
@@ -48,14 +48,14 @@ exports.createPlaylist = async (req, res, next) => {
       );
     } catch (err) {
       console.log("Token might be expired, refreshing...");
-      const newToken = await refreshAccessToken(spotify_id, user.refresh_token);
+      token = await refreshAccessToken(spotify_id, user.refresh_token);
       try {
         response = await axios.post(
           `https://api.spotify.com/v1/users/${spotify_id}/playlists`,
           playlistData,
           {
             headers: {
-              Authorization: `Bearer ${newToken}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           },
@@ -71,6 +71,22 @@ exports.createPlaylist = async (req, res, next) => {
     }
 
     const { id: playlist_id } = response.data;
+
+    try {
+      await axios.put(
+        `https://api.spotify.com/v1/playlists/${playlist_id}`,
+        { description: `https://song-rec.me/${playlist_id}` },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (retryErr) {
+      console.log("Spotify API error after retry:", retryErr);
+      return res.status(500).json({ message: "Failed to create playlist" });
+    }
 
     const newPlaylist = {
       playlist_id,
