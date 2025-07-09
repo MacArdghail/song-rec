@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 9.6rem;
+  padding: 0 4.8rem;
+  max-width: 92rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+}
+
+img {
+  height: 20px;
+}
+::ng-deep .sign-in-button .p-button {
+  border-radius: 4px;
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+::ng-deep .sign-in-button .p-button:hover {
+  transform: scale(0.9);
+}
+
+.sign-in-button .span {
+  font-family: "Inter", sans-serif;
+}
