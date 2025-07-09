@@ -1,0 +1,47 @@
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  (onHide)="onHide()"
+  [style]="{
+    width: '350px',
+    'background-color': '#0a0a0a',
+    'border-color': '#0a0a0a',
+    'border-radius': '6px'
+  }"
+>
+  <div>
+    <div>
+      <div class="dialog-header">
+        Give your recommendation <br />
+        playlist a name
+      </div>
+    </div>
+  </div>
+  <div class="textarea-wrapper">
+    <textarea
+      style="resize: none"
+      rows="1"
+      cols="30"
+      maxlength="140"
+      pTextarea
+      [(ngModel)]="title"
+      placeholder='e.g. "Send me chill songs ✌️"'
+    ></textarea>
+  </div>
+
+  <div class="dialog-btn-container">
+    <p-button
+      (click)="onCreate()"
+      [style]="{
+        'border-radius': '4px',
+        'background-color': '#fff',
+        'border-color': '#fff',
+        'font-weight': 'bold',
+        color: '#151515'
+      }"
+      class="send-button"
+    >
+      CREATE
+    </p-button>
+  </div>
+</p-dialog>

@@ -1,0 +1,93 @@
+::ng-deep .send-button .p-button {
+  border-radius: 0.4rem;
+  background-color: #fff;
+  border: 0.1rem solid #fff;
+  color: #151515;
+  transition: transform 0.2s ease;
+  height: 3.5rem;
+  width: 8rem;
+  font-size: 1.2rem;
+}
+
+textarea {
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border-radius: 0.4rem;
+  color: white;
+}
+
+.p-inputtext {
+  height: 3.5rem;
+  font-size: 1.1rem;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+}
+
+.p-inputtext:enabled:p-focus {
+  height: 3.5rem;
+  font-size: 1.4rem;
+  border: 0.1rem solid black;
+}
+
+::ng-deep .p-inputtext {
+  border: 0.15rem solid black !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-inputtext:focus {
+  border: 0.15rem solid black !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .send-button .p-button:hover {
+  transform: scale(0.9);
+}
+
+.dialog-header {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.2rem;
+  text-transform: uppercase;
+  color: #f0f0f0;
+}
+
+.dialog-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  width: 32.3rem;
+}
+
+.textarea-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 32.3rem;
+  margin-top: 1.5rem;
+}
+
+.textarea-wrapper textarea {
+  height: 2.6rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: black;
+  justify-content: center;
+}
+
+::ng-deep .p-textarea {
+  background-color: black;
+  border: 0.1rem solid #777 !important;
+  border-radius: 0.4rem;
+}
+
+::ng-deep .p-textarea.p-focus {
+  border: 0.1rem solid #777 !important;
+  box-shadow: none !important;
+}
+
+.p-icon {
+  color: #777;
+}
+
+::ng-deep .p-dialog .p-dialog-header .p-dialog-close-button .p-icon {
+  color: #aaaaaa;
+}
