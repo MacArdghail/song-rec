@@ -1,0 +1,281 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.playlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  min-height: 34rem;
+}
+
+.view-btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3.2rem;
+  height: 3rem;
+}
+
+.toggle-view-btn {
+  position: relative;
+  font-weight: 800;
+  border: none;
+  background-color: transparent;
+  margin: 0 1rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.toggle-view-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0.2rem;
+  width: 0%;
+  background-color: black;
+  transition: width 0.3s ease;
+}
+
+.toggle-view-btn:hover::after {
+  width: 100%;
+}
+
+.divider {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.playlists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  height: 20rem;
+}
+
+.playlist {
+  width: 18rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 1rem;
+}
+
+.playlist-btn {
+  width: 17rem;
+  border-radius: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.playlist-img-container {
+  width: 17rem;
+  height: 17rem;
+  overflow: hidden;
+  border-radius: 0.4rem;
+}
+
+.playlist-img {
+  width: 17rem;
+  height: 17rem;
+  overflow: hidden;
+  border-radius: 0.4rem;
+}
+
+.playlist-name {
+  padding: 0.4rem;
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: left;
+  width: 17rem;
+}
+
+.create-btn {
+  background: black;
+  color: white;
+  padding: 0.8rem;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  transition: transform 0.2s ease;
+  margin-left: 0.4rem;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  transform: scale(0.9);
+}
+
+button div img {
+  transition: transform 0.3s ease;
+}
+
+button div:hover img {
+  transform: scale(1.1);
+}
+
+.container {
+  padding: 0 4.8rem;
+  max-width: 92rem;
+  margin: 0 auto;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.recs-container {
+  display: flex;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inactive {
+  opacity: 0.3;
+}
+
+button {
+  font-size: 2rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 0.2rem solid transparent;
+}
+
+.reaction-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.reaction-button {
+  font-size: 2rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.reaction-popover {
+  position: absolute;
+  top: -4rem;
+  background: white;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  z-index: 10;
+}
+
+.emoji-button {
+  font-size: 1.8rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.selected-reaction {
+  font-size: 1.8rem;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 0;
+  font-family: sans-serif;
+}
+
+.index {
+  width: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 24rem;
+  max-width: 24rem;
+}
+
+.album-cover {
+  height: 6rem;
+  width: 6rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.track-text .track-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.track-text .track-artist {
+  color: gray;
+  font-size: 1.2rem;
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 18rem;
+}
+
+.sender-avatar {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sender-name {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-left: 0.6rem;
+}
+
+.message {
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #333;
+  flex-grow: 1;
+  min-width: 18rem;
+  max-width: 18rem;
+}
+
+.react-button {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border: 0.1rem solid #aaa;
+  background: transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.react-button:hover {
+  background: #f0f0f0;
+}
