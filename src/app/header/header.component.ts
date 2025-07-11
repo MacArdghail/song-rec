@@ -39,10 +39,10 @@ export class HeaderComponent {
       });
   }
   onSignInToSpotify() {
-    if (!this.isLoggedIn) {
-      window.location.href = `${this.apiUrl}/spotify_login`;
-    } else {
-      this.router.navigate(['/me']);
-    }
+    // if (!this.isLoggedIn) {
+    window.location.href = `${this.apiUrl}/spotify_login`;
+    // } else {
+    //   this.router.navigate(['/me']);
+    // }
   }
 }
