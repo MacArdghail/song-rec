@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-me',
@@ -19,7 +20,7 @@ export class MeComponent {
   visible: boolean = false;
   playlists: any[] = [];
   recs: any[] = [];
-
+  loading: boolean = true;
   private http = inject(HttpClient);
 
   showDialog() {
@@ -35,37 +36,27 @@ export class MeComponent {
   }
 
   ngOnInit() {
-    this.getPlaylists();
-    this.getMyRecommendations();
+    this.loadData();
   }
 
-  getMyRecommendations() {
-    this.http
-      .get<any>(`${this.apiUrl}/recommendation/yours`, {
+  loadData() {
+    forkJoin({
+      playlists: this.http.get<any>(`${this.apiUrl}/playlist/get_playlists`, {
         withCredentials: true,
-      })
-      .subscribe({
-        next: (response) => {
-          this.recs = response;
-        },
-        error: (err) => {
-          console.error('Error getting response', err);
-        },
-      });
-  }
-
-  getPlaylists() {
-    this.http
-      .get<any>(`${this.apiUrl}/playlist/get_playlists`, {
+      }),
+      recs: this.http.get<any>(`${this.apiUrl}/recommendation/yours`, {
         withCredentials: true,
-      })
-      .subscribe({
-        next: (response) => {
-          this.playlists = response;
-        },
-        error: (err) => {
-          console.error('Error creating playlist', err);
-        },
-      });
+      }),
+    }).subscribe({
+      next: (result) => {
+        this.playlists = result.playlists;
+        this.recs = result.recs;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.log('Error loading data in /me', err);
+        this.loading = false;
+      },
+    });
   }
 }
