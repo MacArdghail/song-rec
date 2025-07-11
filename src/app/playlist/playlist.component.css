@@ -1,0 +1,259 @@
+.playlist-container {
+  display: flex;
+  max-width: 80rem;
+  margin: 0 auto;
+  gap: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  display: flex;
+  max-width: 80rem;
+  margin: 0 auto;
+  margin-top: 3.2rem;
+  margin-bottom: 3.2rem;
+}
+
+.recs {
+  display: flex;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.playlist-img {
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  border-radius: 1rem;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.playlist-info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.playlist-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.playlist-title p {
+  margin: 0.2rem 0;
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #111;
+}
+
+.playlist-title button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.playlist-info {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.playlist-stats {
+  font-size: 1.3rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.inactive {
+  opacity: 0.3;
+}
+
+button div:hover img {
+  transform: scale(1.1);
+}
+
+button {
+  font-size: 2rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-bottom: 0.2rem solid transparent;
+}
+
+button:active {
+  border-bottom: 0.2rem solid black;
+}
+
+.reaction-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.reaction-button {
+  font-size: 2rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.reaction-popover {
+  position: absolute;
+  top: -4rem;
+  background: white;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  z-index: 10;
+}
+
+.emoji-button {
+  font-size: 1.8rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.selected-reaction {
+  font-size: 1.8rem;
+}
+
+.container {
+  max-width: 90rem;
+  padding: 0 3.2rem;
+  gap: 2rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 0;
+  font-family: sans-serif;
+}
+
+.index {
+  width: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 24rem;
+  max-width: 24rem;
+}
+
+.album-cover {
+  height: 6rem;
+  width: 6rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.track-text .track-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.track-text .track-artist {
+  color: gray;
+  font-size: 1.2rem;
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 18rem;
+}
+
+.sender-avatar {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sender-name {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.message {
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #333;
+  flex-grow: 1;
+  min-width: 18rem;
+  max-width: 18rem;
+}
+
+.react-button {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border: 0.1rem solid #aaa;
+  background: transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.react-button:hover {
+  background: #f0f0f0;
+}
+
+.nonexistent-div {
+  display: flex;
+  max-width: 80rem;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nonexistent-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.container-y {
+  padding: 0 4.8rem;
+  max-width: 92rem;
+  margin: 0 auto;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.container-x {
+  padding: 0 4.8rem;
+  max-width: 92rem;
+  margin: 0 auto;
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

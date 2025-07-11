@@ -1,0 +1,127 @@
+<div *ngIf="!exists && !loading" class="nonexistent-div">
+  <h1 class="nonexistent-header">
+    I'm feeling a light to decent 0<br />
+    on what you're looking for existing
+  </h1>
+  <img style="width: 250px" src="assets/af1.jpeg" />
+</div>
+
+<div *ngIf="loading" class="container-x"></div>
+
+<div *ngIf="isOwner && exists">
+  <div class="playlist-container">
+    <div>
+      <img [src]="playlistInfo.image_url" alt="Playlist" class="playlist-img" />
+    </div>
+
+    <div class="playlist-info-container">
+      <div>
+        <div class="playlist-title">
+          <p>
+            {{ playlistInfo.name }}
+          </p>
+          <button (click)="copyPlaylistLink()" title="Copy Link">
+            <span style="font-size: 1.8rem" class="pi pi-copy"></span>
+          </button>
+        </div>
+        <p class="playlist-info">
+          Music suggestions from friends, specially delivered to you. This
+          playlist updates automatically as you receive new tracks.
+        </p>
+        <p class="playlist-stats">
+          {{ playlistStats.unique_recommenders }} recommenders •
+          {{ playlistStats.total_recommendations }} recommendations
+        </p>
+      </div>
+
+      <!-- Buttons -->
+      <p-button
+        (click)="goToPlaylist()"
+        class="sign-in-button"
+        [style]="{
+          'border-radius': '0.6rem',
+          'background-color': 'black',
+          'border-color': 'black',
+          'margin-bottom': '2.5rem',
+          color: 'white'
+        }"
+        ><span style="font-family: 'Inter', sans-serif">Open in Spotify</span>
+        <img
+          style="height: 20px"
+          src="assets/Primary_Logo_White_RGB.svg"
+          alt="Spotify logo"
+        />
+      </p-button>
+    </div>
+  </div>
+
+  <h1 class="title">Recommendations</h1>
+
+  <div *ngIf="playlistRecs.length === 0" class="container-y">
+    <h1>
+      You haven’t received any recommendations <i>yet</i> <br />
+      Copy your playlist link and share with friends to start getting some!
+      <button (click)="copyPlaylistLink()" title="Copy Link">
+        <span style="font-size: 1.8rem" class="pi pi-copy"></span>
+      </button>
+    </h1>
+  </div>
+
+  <div *ngFor="let rec of playlistRecs; let i = index" class="recs">
+    <div class="track-row">
+      <div class="index">{{ i + 1 }}</div>
+      <div class="track-info">
+        <img class="album-cover" [src]="rec.track_img" />
+        <div class="track-text">
+          <div class="track-title">{{ rec.track_name }}</div>
+          <div class="track-artist">{{ rec.artist_name }}</div>
+        </div>
+      </div>
+      <div class="sender-info">
+        <img
+          class="sender-avatar"
+          src="https://i.scdn.co/image/ab67757000003b82e5e5fc7c114ad6025af6b080"
+          alt="Fionn McArdle"
+        />
+        <span class="sender-name">Fionn McArdle</span>
+      </div>
+
+      <div class="message">
+        “<em>{{ rec.message }}</em
+        >”
+      </div>
+      <div style="font-style: normal">
+        {{ rec.sentAt | date : "MMMM d, y" }}
+      </div>
+      <div style="display: flex">
+        <button
+          [ngStyle]="{
+            'font-size': '1.4rem'
+          }"
+          [ngClass]="rec.emoji === '👍' ? 'active' : 'inactive'"
+          (click)="react(rec.recommendation_id, '👍')"
+        >
+          👍
+        </button>
+        <button
+          [ngStyle]="{
+            'font-size': '1.4rem'
+          }"
+          [ngClass]="rec.emoji === '👎' ? 'active' : 'inactive'"
+          (click)="react(rec.recommendation_id, '👎')"
+        >
+          👎
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="exists && !isOwner">
+  <app-send
+    *ngIf="playlistDetails"
+    [playlistDetails]="playlistDetails"
+  ></app-send>
+</div>
+
+<p-toast></p-toast>
