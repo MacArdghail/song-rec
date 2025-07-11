@@ -14,6 +14,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:4200",
   "https://song-rec-5zl4.vercel.app",
+  "https://song-rec-fionns-projects-7c39b3c9.vercel.app/",
+  "https://song-rec.me/",
 ];
 
 // Middleware
