@@ -1,0 +1,153 @@
+.container {
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+
+::ng-deep .send-button .p-button {
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  color: #151515;
+  transition: transform 0.2s ease;
+  height: 35px;
+  width: 80px;
+  font-size: 12px;
+}
+
+::ng-deep .send-button .p-button:hover {
+  transform: scale(0.9);
+}
+
+.song-container {
+  display: flex;
+  align-items: center;
+  gap: 7.5px;
+  margin-top: 15px;
+  width: 350px;
+}
+
+#track-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#artist-name {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.blank-space {
+  height: 100px;
+}
+
+.btn-container {
+  margin-left: 100px;
+}
+
+.p-inputtext {
+  height: 35px;
+  font-size: 14px;
+  border: 1px solid black;
+}
+
+.p-inputtext:enabled:p-focus {
+  height: 35px;
+  font-size: 14px;
+  border: 1px solid black;
+}
+
+::ng-deep .p-inputtext {
+  border: 1.5px solid black !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-inputtext:focus {
+  border: 1.5px solid black !important;
+  box-shadow: none !important;
+}
+
+.suggested {
+  color: darkgray;
+  margin-top: 10px;
+}
+
+.p-icon {
+  color: #777;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.5rem 0;
+  font-family: sans-serif;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 24rem;
+  max-width: 24rem;
+}
+
+.album-cover {
+  height: 6rem;
+  width: 6rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.track-text .track-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.track-text .track-artist {
+  color: gray;
+  font-size: 1.2rem;
+}
+
+.send-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.bio-text {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.bio-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container {
+  margin: 0 auto;
+  max-width: 350px;
+}
+
+.recommend-text {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.container-x {
+  padding: 0 4.8rem;
+  max-width: 92rem;
+  margin: 0 auto;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

@@ -1,0 +1,77 @@
+<div *ngIf="loading" class="container-x"></div>
+
+<div *ngIf="playlistDetails && !loading">
+  <div class="search-container">
+    <div class="bio-container">
+      <div class="bio-text">
+        Find a song you'd like to <br />
+        <span class="recommend-text">recommend</span>
+        to {{ playlistDetails.owner_name }} for their "{{
+          playlistDetails.playlist_name
+        }}" playlist<span style="color: #18ac4c">.</span>
+      </div>
+
+      <img
+        style="height: 50px; width: 50px; border-radius: 50%"
+        [src]="playlistDetails.owner_profile_img"
+      />
+    </div>
+
+    <input
+      type="text"
+      pInputText
+      [formControl]="searchControl"
+      placeholder="Search a song"
+      style="width: 350px"
+    />
+
+    <div>
+      <div class="suggested" style="height: 3rem">
+        <span *ngIf="displaySuggested">Songs you've had on repeat lately</span>
+      </div>
+
+      <ng-container *ngFor="let track of displayTracks; trackBy: trackById">
+        <div class="song-container">
+          <div class="track-info">
+            <img
+              class="album-cover"
+              [src]="track.albumCover"
+              alt="Dark Side of the moon album cover"
+              draggable="false"
+            />
+            <div class="track-text">
+              <div class="track-title">{{ track.name }}</div>
+              <div class="track-artist">{{ track.artist }}</div>
+            </div>
+          </div>
+
+          <div class="send-btn-container">
+            <p-button
+              (click)="
+                showDialog(track.name, track.artist, track.albumCover, track.id)
+              "
+              [style]="{
+                'border-radius': '4px',
+                'background-color': '#18AC4C',
+                border: '1px solid black',
+                'font-weight': 'bold',
+                color: 'white'
+              }"
+              class="send-button"
+            >
+              SEND
+            </p-button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<app-modal
+  [(visible)]="visible"
+  [trackName]="selectedTrackName"
+  [trackArtist]="selectedTrackArtist"
+  [trackImage]="selectedTrackImage"
+  [id]="selectedTrackId"
+></app-modal>
