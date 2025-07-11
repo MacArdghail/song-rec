@@ -91,3 +91,271 @@ textarea {
 ::ng-deep .p-dialog .p-dialog-header .p-dialog-close-button .p-icon {
   color: #aaaaaa;
 }
+
+/* new */
+.p-select {
+  color: black;
+}
+.container {
+  max-width: 120rem;
+  padding: 0 3.2rem;
+  margin: 0 auto;
+}
+.back-to-top {
+  text-align: right;
+  cursor: pointer;
+  /* text-decoration: underline; */
+  transition: color 0.3s;
+}
+
+.back-to-top:hover {
+  text-decoration: underline;
+}
+.grid {
+  display: grid;
+  column-gap: 6.4rem;
+  row-gap: 9.6rem;
+  justify-content: center;
+
+  /* grid-template-columns: repeat(2, 1fr); */
+}
+
+.grid--center-v {
+  align-items: center;
+}
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} */
+
+.footer {
+  padding: 0rem 0 0;
+  border-top: 1px solid #eee;
+  justify-content: center;
+}
+
+.logo-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 3.2rem;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.social-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.copyright {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: #767676;
+  margin-top: 4.5rem;
+}
+
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+
+.contacts {
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.address {
+  margin-bottom: 2.4rem;
+}
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 0;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #767676;
+}
+
+.footer-link:hover,
+.footer-link:active {
+  color: #555;
+}
+
+.grid--footer {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ::ng-deep .sign-in-button .p-button {
+  border-radius: 4px;
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+::ng-deep .sign-in-button .p-button:hover {
+  transform: scale(0.9);
+} */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 375px;
+  height: 8.4rem;
+
+  margin: 0 auto;
+}
+
+::ng-deep .send-button .p-button {
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  color: #151515;
+  transition: transform 0.2s ease;
+  height: 35px;
+  width: 80px;
+  font-size: 12px;
+}
+
+::ng-deep .send-button .p-button:hover {
+  transform: scale(0.9);
+}
+
+.song-container {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  gap: 7.5px;
+  margin-top: 15px;
+}
+
+#track-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#artist-name {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.blank-space {
+  height: 100px;
+}
+
+.btn-container {
+  margin-left: 100px;
+}
+
+.p-inputtext {
+  height: 35px;
+  font-size: 14px;
+  border: 1px solid black;
+}
+
+.p-inputtext:enabled:p-focus {
+  height: 35px;
+  font-size: 14px;
+  border: 1px solid black;
+}
+
+::ng-deep .p-inputtext {
+  border: 1.5px solid black !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-inputtext:focus {
+  border: 1.5px solid black !important;
+  box-shadow: none !important;
+}
+
+.suggested {
+  color: darkgray;
+  margin-top: 10px;
+}
+
+.textarea-wrapper-1 {
+  position: relative;
+  display: inline-block;
+  width: 323px;
+}
+
+.textarea-wrapper-1 textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: black;
+}
+
+::ng-deep .p-inputtextarea::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+textarea::placeholder {
+  color: #aaa;
+  font-weight: normal;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 12px;
+  color: #777;
+  pointer-events: none;
+}
+
+.p-textarea {
+  background-color: #0a0a0a;
+  border: 1px solid #777;
+  color: #f0f0f0;
+  font-size: 14px;
+}
+
+::ng-deep .p-textarea {
+  background-color: black;
+  border: 1px solid #777 !important;
+  border-radius: 4px;
+}
+
+::ng-deep .p-textarea.p-focus {
+  border: 1px solid #777 !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .p-textarea textarea {
+  color: #f0f0f0;
+  background-color: black;
+}
+
+.p-icon {
+  color: #777;
+}
+
+::ng-deep .p-dialog .p-dialog-header .p-dialog-close-button .p-icon {
+  color: #aaaaaa;
+}
+
+body {
+  margin: 0 auto;
+}

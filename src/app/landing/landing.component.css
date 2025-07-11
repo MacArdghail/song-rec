@@ -2,4 +2,8 @@
   padding: 0 4.8rem;
   max-width: 92rem;
   margin: 0 auto;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

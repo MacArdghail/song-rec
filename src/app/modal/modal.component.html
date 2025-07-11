@@ -9,7 +9,42 @@
     'border-radius': '6px'
   }"
 >
-  <div>
+  <div
+    *ngIf="trackName"
+    class="song-container"
+    style="margin-top: 0px; width: 323px"
+  >
+    <img
+      [src]="trackImage"
+      alt="Dark Side of the moon album cover"
+      style="height: 60px; width: 60px; border-radius: 2px"
+      draggable="false"
+    />
+    <div class="song-info">
+      <div
+        style="
+          font-size: 18px;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #f0f0f0;
+        "
+      >
+        {{ trackName }}
+      </div>
+      <div
+        style="
+          font-size: 12px;
+          color: #777;
+          height: 20px;
+          text-transform: uppercase;
+        "
+      >
+        {{ trackArtist }}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!trackName">
     <div>
       <div class="dialog-header">
         Give your recommendation <br />
@@ -17,7 +52,21 @@
       </div>
     </div>
   </div>
-  <div class="textarea-wrapper">
+
+  <div *ngIf="trackName" class="textarea-wrapper-1" style="margin-top: 15px">
+    <textarea
+      style="resize: none"
+      rows="5"
+      cols="30"
+      maxlength="140"
+      pTextarea
+      [(ngModel)]="value"
+      placeholder="Send with a personal note"
+    ></textarea>
+
+    <div class="char-counter">{{ value?.length || 0 }}/140</div>
+  </div>
+  <div *ngIf="!trackName" class="textarea-wrapper">
     <textarea
       style="resize: none"
       rows="1"
@@ -31,7 +80,8 @@
 
   <div class="dialog-btn-container">
     <p-button
-      (click)="onCreate()"
+      (click)="onClick()"
+      (click)="onHide()"
       [style]="{
         'border-radius': '4px',
         'background-color': '#fff',
@@ -41,7 +91,9 @@
       }"
       class="send-button"
     >
-      CREATE
+      <span *ngIf="!trackName">CREATE</span><span *ngIf="trackName">SEND</span>
     </p-button>
   </div>
 </p-dialog>
+
+<p-toast></p-toast>
