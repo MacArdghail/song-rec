@@ -14,19 +14,22 @@ exports.spotifyLogin = (req, res) => {
     "playlist-modify-public",
     "user-read-recently-played",
   ];
+  const state = req.query.state;
 
   const authUrl =
     `https://accounts.spotify.com/authorize?` +
     `response_type=code&` +
     `client_id=${encodeURIComponent(clientId)}&` +
     `scope=${encodeURIComponent(scopes.join(" "))}&` +
-    `redirect_uri=${encodeURIComponent(redirectUri)}`;
+    `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+    `state=${encodeURIComponent(state)}`;
 
   res.redirect(authUrl);
 };
 
 exports.spotifyCallback = async (req, res, next) => {
   const code = req.query.code;
+  const state = req.query.state;
 
   if (!code) {
     return res.status(400).json({ error: "Authorization Code missing" });
@@ -95,6 +98,9 @@ exports.spotifyCallback = async (req, res, next) => {
       sameSite: "lax",
     });
 
+    if (state) {
+      res.redirect(`http://localhost:4200/${state}`);
+    }
     res.redirect("http://localhost:4200/me");
   } catch (err) {
     if (err.response) {

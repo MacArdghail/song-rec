@@ -35,20 +35,22 @@ exports.sendRecommendation = async (req, res) => {
       return res.status(404).json({ message: "Sender not found" });
     }
 
+    let accessToken = recipient.access_token;
+
     try {
       await axios.post(
         `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
         { uris: [`spotify:track:${track_id}`] },
         {
           headers: {
-            Authorization: `Bearer ${recipient.access_token}`,
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
         },
       );
     } catch (err) {
       console.log("Access token may be expired. Refreshing...");
-      const accessToken = await refreshAccessToken(
+      accessToken = await refreshAccessToken(
         recipient.spotify_id,
         recipient.refresh_token,
       );
@@ -72,6 +74,25 @@ exports.sendRecommendation = async (req, res) => {
       }
     }
 
+    let trackResponse;
+
+    try {
+      trackResponse = await axios.get(
+        `https://api.spotify.com/v1/tracks/${track_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.error("Failed to fetch track details:", err);
+      return res.status(500).json({ message: "Failed to fetch track details" });
+    }
+
+    console.log(trackResponse);
+
     await recommendations.insertOne({
       recommendation_id: uuidv4(),
       sender_spotify_id,
@@ -79,21 +100,24 @@ exports.sendRecommendation = async (req, res) => {
       playlist_id,
       track_id,
       message,
+      track_name: trackResponse.data.name,
+      track_img: trackResponse.data.album.images[0]?.url ?? "",
+      artist_name: trackResponse.data.artists[0]?.name ?? "",
       sentAt: new Date(),
     });
 
     try {
-      await sendEmail({
-        to: recipient.email,
-        subject: `${sender.display_name} sent you a song 🎶`,
-        html: `
-                <p>${sender.display_name} sent you song: ${track_id}</p>
-                <p>With message: ${message}</p>
-                <p><a href="https://open.spotify.com/track/${track_id}" target="_blank">Listen on Spotify</a></p>
-                <hr />
-                <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
-            `,
-      });
+      // await sendEmail({
+      //   to: recipient.email,
+      //   subject: `${sender.display_name} sent you a song 🎶`,
+      //   html: `
+      //           <p>${sender.display_name} sent you song: ${track_id}</p>
+      //           <p>With message: ${message}</p>
+      //           <p><a href="https://open.spotify.com/track/${track_id}" target="_blank">Listen on Spotify</a></p>
+      //           <hr />
+      //           <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
+      //       `,
+      // });
       console.log("Email sent successfully");
     } catch (err) {
       console.error("Failed to send email", err);
@@ -186,22 +210,103 @@ exports.getYourRecommendations = async (req, res) => {
 
 exports.getPlaylistRecommendations = async (req, res) => {
   const playlist_id = req.query.playlist_id;
+  const spotify_id = req.user.spotify_id;
 
   if (!playlist_id) {
-    return res.status(400).json({ message: "missing playlistId" });
+    return res.status(400).json({ message: "Missing playlist_id" });
   }
 
   try {
     const client = await mongoConnect();
     const db = client.db("songrec");
 
+    const user = await db.collection("spotify_users").findOne({ spotify_id });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let accessToken = user.access_token;
+    let response;
+
+    try {
+      response = await axios.get(
+        `https://api.spotify.com/v1/playlists/${playlist_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (err) {
+      console.log("Access token may be expired. Refreshing...");
+      if (!user.refresh_token) {
+        return res.status(401).json({ message: "Refresh token missing" });
+      }
+      accessToken = await refreshAccessToken(spotify_id, user.refresh_token);
+
+      try {
+        response = await axios.get(
+          `https://api.spotify.com/v1/playlists/${playlist_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      } catch (retryErr) {
+        console.log("Spotify API error after retry:", retryErr);
+        return res
+          .status(500)
+          .json({ message: "Failed to fetch playlist info" });
+      }
+    }
+
+    const playlist_info = {
+      name: response.data.name || "Error finding playlist name",
+      image_url:
+        response.data.images?.[0]?.url ??
+        "https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2",
+    };
+
     const recommendations = await db
       .collection("recommendations")
       .find({ playlist_id })
       .toArray();
-    res.status(200).json({ recommendations });
+
+    const totalRecommendations = recommendations.length;
+
+    const uniqueRecommenders = new Set(
+      recommendations.map((rec) => rec.sender_spotify_id),
+    ).size;
+
+    const recs = await Promise.all(
+      recommendations.map(async (rec) => {
+        const user = await db
+          .collection("spotify_users")
+          .findOne({ spotify_id: rec.sender_spotify_id });
+        return {
+          ...rec,
+          display_name: user?.display_name,
+          profile_img:
+            user?.profile_img ??
+            "https://cdna.artstation.com/p/assets/images/images/084/124/296/large/matthew-blank-profile-photo-1.jpg?1737590038",
+        };
+      }),
+    );
+
+    res.status(200).json({
+      recommendations: recs,
+      playlist_info,
+      stats: {
+        total_recommendations: totalRecommendations,
+        unique_recommenders: uniqueRecommenders,
+      },
+    });
   } catch (err) {
-    console.error("Error in getPlaylist: ", err);
+    console.error("Error in getPlaylistRecommendations: ", err);
     res.status(500).json({ message: "Internal server error" });
   }
 };

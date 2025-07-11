@@ -95,7 +95,7 @@ exports.createPlaylist = async (req, res, next) => {
     };
 
     await db.collection("playlists").insertOne(newPlaylist);
-    res.status(201).json({ message: "Playlist created successfully" });
+    res.status(201).json({ playlist_id });
   } catch (err) {
     next(err);
   }
@@ -186,6 +186,26 @@ exports.recentlyPlayed = async (req, res, next) => {
   }
 };
 
+exports.me = async (req, res) => {
+  const spotify_id = req.user.spotify_id;
+  try {
+    const client = await mongoConnect();
+    const db = client.db("songrec");
+    const user = await db.collection("spotify_users").findOne({ spotify_id });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      profile_img:
+        user?.profile_img ||
+        "https://cdna.artstation.com/p/assets/images/images/084/124/296/large/matthew-blank-profile-photo-1.jpg?1737590038",
+    });
+  } catch (err) {
+    console.error("Spotify API error after retry:", err);
+    return res.status(401).json({ message: "Failed to get me" });
+  }
+};
 exports.searchSong = async (req, res, next) => {
   const spotify_id = req.user.spotify_id;
   const search_query = req.query.q;
