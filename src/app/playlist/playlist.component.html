@@ -80,10 +80,10 @@
       <div class="sender-info">
         <img
           class="sender-avatar"
-          src="https://i.scdn.co/image/ab67757000003b82e5e5fc7c114ad6025af6b080"
+          [src]="rec.profile_img"
           alt="Fionn McArdle"
         />
-        <span class="sender-name">Fionn McArdle</span>
+        <span class="sender-name">{{ rec.display_name }}</span>
       </div>
 
       <div class="message">
