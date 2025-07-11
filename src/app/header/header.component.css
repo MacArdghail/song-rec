@@ -31,3 +31,11 @@ img {
 .sign-in-button .span {
   font-family: "Inter", sans-serif;
 }
+
+.profile-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}

@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+body {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: "inter" sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.p-dialog-header {
+  padding: 6.75px !important;
+  margin: 0 !important;
+}
+
+.p-dialog-header-actions {
+  position: absolute;
+  right: 12.5px;
+  top: 12.5px;
+}
+
+.p-dialog-title {
+  color: #666;
+}
+
+.p-textarea {
+  background-color: black;
+}
