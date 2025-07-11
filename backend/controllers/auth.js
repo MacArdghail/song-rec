@@ -99,9 +99,11 @@ exports.spotifyCallback = async (req, res, next) => {
     });
 
     if (state) {
-      res.redirect(`http://localhost:4200/${state}`);
+      res.redirect(
+        `https://song-rec-fionns-projects-7c39b3c9.vercel.app/${state}`,
+      );
     }
-    res.redirect("http://localhost:4200/me");
+    res.redirect("https://song-rec-fionns-projects-7c39b3c9.vercel.app/me");
   } catch (err) {
     if (err.response) {
       console.error("Spotify token error:", err.response.data);
