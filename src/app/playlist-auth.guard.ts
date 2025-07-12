@@ -5,9 +5,9 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { catchError, map, tap } from 'rxjs/operators';
+import { throwError, of } from 'rxjs';
 
 export const playlistAuthGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -24,7 +24,8 @@ export const playlistAuthGuard: CanActivateFn = (
         playlistId
       )}`;
       window.location.href = redirectUrl;
-      return of(false);
+
+      return throwError(() => new Error('Redirecting to Spotify login...'));
     })
   );
 };
