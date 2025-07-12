@@ -20,5 +20,6 @@ export const routes: Routes = [
     path: ':id',
     component: PlaylistComponent,
     canActivate: [playlistAuthGuard],
+    data: { title: 'Song Recommend Me' },
   },
 ];
