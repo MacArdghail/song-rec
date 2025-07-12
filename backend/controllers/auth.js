@@ -14,7 +14,7 @@ exports.spotifyLogin = (req, res) => {
     "playlist-modify-public",
     "user-read-recently-played",
   ];
-  const state = req.query.state;
+  const state = req.query.state || "";
 
   const authUrl =
     `https://accounts.spotify.com/authorize?` +
@@ -93,15 +93,17 @@ exports.spotifyCallback = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 30 * 21 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      secure: true,
+      sameSite: "None",
+      domain: "song-rec.me",
+      path: "/",
     });
 
     if (state) {
-      res.redirect(`https://song-rec.me/${state}`);
+      return res.redirect(`https://song-rec.me/${state}`);
     }
-    res.redirect("https://song-rec.me/me");
+    return res.redirect("https://song-rec.me/me");
   } catch (err) {
     if (err.response) {
       console.error("Spotify token error:", err.response.data);
