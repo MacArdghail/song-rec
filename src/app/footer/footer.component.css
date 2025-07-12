@@ -69,15 +69,55 @@
   font-size: 4.8rem;
 }
 
-p {
+.p-text {
   font-size: 1.4rem;
 }
 
-p span {
+.p-title {
   font-size: 1.6rem;
   font-weight: bold;
 }
 
 a {
   color: #007bff;
+}
+
+@media (max-width: 60rem) {
+  .logo {
+    font-weight: 700;
+    font-size: 3.2rem;
+  }
+
+  .p-text {
+    font-size: 1rem;
+  }
+
+  .p-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 35rem) {
+  .logo {
+    font-weight: 600;
+    font-size: 2.2rem;
+  }
+
+  .p-title {
+    font-size: 1rem;
+    display: block;
+  }
+
+  .p-text {
+    font-size: 1.2rem;
+    display: none;
+  }
+
+  .reddit-link {
+    display: block;
+  }
+
+  .grid--footer-2 {
+    grid-template-columns: 1fr 1fr;
+  }
 }
