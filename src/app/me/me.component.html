@@ -30,7 +30,9 @@
           <span>CREATE <span class="rec-text">REC</span> PLAYLIST</span>
         </button>
         <div *ngIf="playlists.length === 0" class="container-x">
-          <h1>You don't have any recommendation playlists open</h1>
+          <h1 style="text-align: center">
+            You don't have any recommendation playlists open
+          </h1>
           <button (click)="showDialog()" class="create-btn">
             <span>CREATE PLAYLIST</span>
           </button>
@@ -65,7 +67,9 @@
     <div *ngIf="!loading">
       <!-- View to show recommendations you've sent-->
       <div *ngIf="!showReceived && recs.length === 0" class="container-x">
-        <h1>You haven't recommended any tracks to anyone 🥺</h1>
+        <h1 style="text-align: center">
+          You haven't recommended any tracks to anyone 🥺
+        </h1>
       </div>
       <div *ngIf="!showReceived && recs.length !== 0">
         <h1 class="title">Recommendations you've sent</h1>
