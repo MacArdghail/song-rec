@@ -64,7 +64,7 @@
   justify-content: center;
   margin: 0 auto;
   text-align: center;
-  height: 20rem;
+  height: 18rem;
 }
 
 .playlist {
@@ -245,4 +245,62 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media (max-width: 60rem) {
+  .playlists {
+    height: 18rem;
+  }
+
+  .playlist {
+    width: 14rem;
+  }
+
+  .playlist-btn {
+    width: 14rem;
+  }
+
+  .playlist-img-container {
+    width: 14rem;
+    height: 14rem;
+  }
+
+  .playlist-img {
+    width: 14rem;
+    height: 14rem;
+  }
+
+  .playlist-name {
+    width: 14rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 35rem) {
+  /* .playlists {
+    height: 18rem;
+  } */
+
+  .playlist {
+    width: 11rem;
+  }
+
+  .playlist-btn {
+    width: 11rem;
+  }
+
+  .playlist-img-container {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .playlist-img {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .playlist-name {
+    width: 11rem;
+    font-size: 1rem;
+  }
 }

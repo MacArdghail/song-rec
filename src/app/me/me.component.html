@@ -27,9 +27,8 @@
           (click)="showDialog()"
           class="create-btn"
         >
-          <span>Create recommendation playlist</span>
+          <span>CREATE REC PLAYLIST</span>
         </button>
-
         <div class="playlist-container">
           <div *ngIf="playlists.length === 0" class="container-x">
             <h1>You don't have any recommendation playlists open</h1>
@@ -38,7 +37,11 @@
             </button>
           </div>
 
-          <div *ngFor="let playlist of playlists" class="playlist">
+          <div
+            *ngFor="let playlist of playlists"
+            class="playlist"
+            style="margin: 0 auto"
+          >
             <button [routerLink]="['/', playlist.id]" class="playlist-btn">
               <div class="playlist-img-container">
                 <img
