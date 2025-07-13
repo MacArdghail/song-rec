@@ -19,15 +19,15 @@
 
 iframe {
   width: 100%;
-  height: 400px;
+  height: 100%;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 60rem) {
   .container-x {
-    padding: 1rem;
+    padding: 0 2.4rem;
   }
 
   .container-x h1 {
