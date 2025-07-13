@@ -323,29 +323,29 @@ button {
 
 @media (max-width: 35rem) {
   .playlist-container {
-    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   }
 
   .playlist {
-    width: 13rem;
+    width: 14rem;
   }
 
   .playlist-btn {
-    width: 13rem;
+    width: 14rem;
   }
 
   .playlist-img-container {
-    width: 13rem;
-    height: 13rem;
+    width: 14rem;
+    height: 14rem;
   }
 
   .playlist-img {
-    width: 13rem;
-    height: 13rem;
+    width: 14rem;
+    height: 14rem;
   }
 
   .playlist-name {
-    width: 13rem;
+    width: 14rem;
     font-size: 1rem;
   }
 }
