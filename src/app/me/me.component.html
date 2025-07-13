@@ -6,16 +6,16 @@
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': showReceived }"
       >
-        <span style="color: #333333">RECEIVED</span>
+        <span style="color: #222222">RECEIVED</span>
       </button>
-      <span class="divider" style="color: #333333"> | </span>
+      <span class="divider"> | </span>
 
       <button
         (click)="view('sent')"
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': !showReceived }"
       >
-        <span style="color: #333333"> SENT</span>
+        <span style="color: #222222"> SENT</span>
       </button>
     </div>
 
@@ -27,7 +27,7 @@
           (click)="showDialog()"
           class="create-btn"
         >
-          <span>CREATE REC PLAYLIST</span>
+          <span>CREATE <span class="rec-text">REC</span> PLAYLIST</span>
         </button>
 
         <div class="playlist-container">

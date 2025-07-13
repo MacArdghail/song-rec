@@ -22,7 +22,6 @@
   padding: 0.4rem;
   cursor: pointer;
   overflow: hidden;
-  border-bottom: 2px solid white;
 }
 
 .toggle-view-btn::after {
@@ -32,8 +31,8 @@
   left: 0;
   height: 0.2rem;
   width: 0%;
-  background-color: black;
-  transition: width 0.3s ease;
+  background-color: #222222;
+  transition: width 0.4s ease;
 }
 
 .toggle-view-btn:hover::after {
@@ -41,20 +40,16 @@
 }
 
 .toggle-view-btn-active::after {
-  width: 0%;
-}
-
-.toggle-view-btn-active {
-  border-bottom: 2px solid black;
+  width: 100%;
 }
 
 .toggle-view-btn-active:hover::after {
-  width: 0%;
+  width: 100%;
 }
 
 .divider {
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  color: #222222;
 }
 
 .playlists {
@@ -148,7 +143,7 @@
   font-size: 1.4rem;
   text-align: left;
   width: 100%;
-  color: #333333;
+  color: #222222;
 }
 
 .create-btn {
@@ -318,6 +313,9 @@ button {
 }
 
 @media (max-width: 35rem) {
+  .rec-text {
+    display: none;
+  }
   .playlist-container {
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   }
