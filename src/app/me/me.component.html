@@ -29,15 +29,13 @@
         >
           <span>CREATE <span class="rec-text">REC</span> PLAYLIST</span>
         </button>
-
-        <div class="playlist-container">
-          <div *ngIf="playlists.length === 0" class="container-x">
-            <h1>You don't have any recommendation playlists open</h1>
-            <button (click)="showDialog()" class="create-btn">
-              <span>Create a playlist</span>
-            </button>
-          </div>
-
+        <div *ngIf="playlists.length === 0" class="container-x">
+          <h1>You don't have any recommendation playlists open</h1>
+          <button (click)="showDialog()" class="create-btn">
+            <span>CREATE PLAYLIST</span>
+          </button>
+        </div>
+        <div *ngIf="playlists.length !== 0" class="playlist-container">
           <div
             *ngFor="let playlist of playlists"
             class="playlist"
