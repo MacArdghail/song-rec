@@ -257,3 +257,63 @@ button:active {
   align-items: center;
   flex-direction: column;
 }
+
+@media (max-width: 60rem) {
+  .playlist-container {
+    gap: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .playlist-img {
+    width: 16rem;
+    height: 16rem;
+    border-radius: 0.5rem;
+  }
+
+  .playlist-title {
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .playlist-title p {
+    margin: 0.2rem 0;
+    font-size: 2.2rem;
+  }
+
+  .playlist-info {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .playlist-stats {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 60rem) {
+  .playlist-img {
+    width: 14rem;
+    height: 14rem;
+    border-radius: 0.25rem;
+  }
+
+  .playlist-title p {
+    font-size: 1.8rem;
+  }
+
+  .playlist-info {
+    margin-top: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .playlist-stats {
+    font-size: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  .open-in-s {
+    font-size: 1rem;
+  }
+}
