@@ -6,11 +6,17 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { forkJoin } from 'rxjs';
-
+import { TruncatePipe } from '../truncate.pipe';
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [RouterModule, ButtonModule, CommonModule, ModalComponent],
+  imports: [
+    RouterModule,
+    ButtonModule,
+    CommonModule,
+    ModalComponent,
+    TruncatePipe,
+  ],
   templateUrl: './me.component.html',
   styleUrl: './me.component.css',
 })

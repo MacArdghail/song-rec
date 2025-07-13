@@ -328,8 +328,8 @@ button {
 
   .track-info {
     gap: 0.5rem;
-    min-width: 18rem;
-    max-width: 18rem;
+    min-width: 16rem;
+    max-width: 16rem;
   }
 
   .album-cover {
@@ -337,6 +337,20 @@ button {
     width: 4rem;
     object-fit: cover;
     border-radius: 0.4rem;
+  }
+
+  .track-text .track-title {
+    font-size: 1.2rem;
+  }
+
+  .track-text .track-artist {
+    font-size: 1rem;
+  }
+
+  .message {
+    font-size: 1.2rem;
+    min-width: 14rem;
+    max-width: 14rem;
   }
 }
 
@@ -382,5 +396,19 @@ button {
   .playlist-name {
     width: 14rem;
     font-size: 1rem;
+  }
+
+  .track-text .track-title {
+    font-size: 1rem;
+  }
+
+  .track-text .track-artist {
+    font-size: 0.8rem;
+  }
+
+  .message {
+    font-size: 1rem;
+    min-width: 14rem;
+    max-width: 14rem;
   }
 }

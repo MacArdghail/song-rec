@@ -80,7 +80,9 @@
             <div class="track-info">
               <img class="album-cover" [src]="rec.track_img" />
               <div class="track-text">
-                <div class="track-title">{{ rec.track_name }}</div>
+                <div class="track-title">
+                  {{ rec.track_name | truncate : 18 }}
+                </div>
                 <div class="track-artist">{{ rec.artist_name }}</div>
               </div>
             </div>
