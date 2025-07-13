@@ -89,17 +89,59 @@
   cursor: pointer;
 }
 
+.playlist-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(18rem, 1fr)
+  ); /* Automatically adjust the columns */
+  gap: 2.4rem;
+  min-height: 34rem;
+}
+
+.playlists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  height: 18rem;
+}
+
+.playlist {
+  width: 100%; /* Allow the playlist item to take up full available width in the grid */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 1rem;
+}
+
+.playlist-btn {
+  width: 100%; /* Ensure the button takes up full width within the playlist item */
+  border-radius: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
 .playlist-img-container {
-  width: 17rem;
+  width: 100%;
   height: 17rem;
   overflow: hidden;
   border-radius: 0.4rem;
 }
 
 .playlist-img {
-  width: 17rem;
-  height: 17rem;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire container */
   border-radius: 0.4rem;
 }
 
@@ -108,7 +150,7 @@
   margin: 0;
   font-size: 1.4rem;
   text-align: left;
-  width: 17rem;
+  width: 100%;
 }
 
 .create-btn {
@@ -248,59 +290,62 @@ button {
 }
 
 @media (max-width: 60rem) {
-  .playlists {
-    height: 18rem;
+  .playlist-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(14rem, 1fr)
+    ); /* Adjust for smaller screen sizes */
   }
 
   .playlist {
-    width: 14rem;
+    width: 100%;
   }
 
   .playlist-btn {
-    width: 14rem;
+    width: 100%;
   }
 
   .playlist-img-container {
-    width: 14rem;
+    width: 100%;
     height: 14rem;
   }
 
   .playlist-img {
-    width: 14rem;
-    height: 14rem;
+    width: 100%;
+    height: 100%;
   }
 
   .playlist-name {
-    width: 14rem;
+    width: 100%;
     font-size: 1.2rem;
   }
 }
 
 @media (max-width: 35rem) {
-  /* .playlists {
-    height: 18rem;
-  } */
+  .playlist-container {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  }
 
   .playlist {
-    width: 11rem;
+    width: 13rem;
   }
 
   .playlist-btn {
-    width: 11rem;
+    width: 13rem;
   }
 
   .playlist-img-container {
-    width: 11rem;
-    height: 11rem;
+    width: 13rem;
+    height: 13rem;
   }
 
   .playlist-img {
-    width: 11rem;
-    height: 11rem;
+    width: 13rem;
+    height: 13rem;
   }
 
   .playlist-name {
-    width: 11rem;
+    width: 13rem;
     font-size: 1rem;
   }
 }
