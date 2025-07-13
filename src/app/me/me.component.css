@@ -310,9 +310,71 @@ button {
     width: 16rem;
     font-size: 1.2rem;
   }
+  .index {
+    width: 1rem;
+  }
+}
+
+@media (max-width: 60rem) {
+  .container {
+    padding: 0 2.4rem;
+    max-width: 92rem;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-top: 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .track-row {
+    gap: 1rem;
+    padding: 0.25rem 0;
+  }
+
+  .track-info {
+    gap: 0.5rem;
+    min-width: 18rem;
+    max-width: 18rem;
+  }
+
+  .album-cover {
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+    border-radius: 0.4rem;
+  }
+
+  .track-text .track-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .track-text .track-artist {
+    color: gray;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 35rem) {
+  .container {
+    padding: 0 1.6rem;
+    max-width: 92rem;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .track-row {
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+  }
+
   .rec-text {
     display: none;
   }
