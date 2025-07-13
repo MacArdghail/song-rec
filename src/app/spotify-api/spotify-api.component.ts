@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './spotify-api.component.html',
-  styleUrl: './spotify-api.component.css'
+  styleUrl: './spotify-api.component.css',
 })
-export class SpotifyApiComponent {
-
-}
+export class SpotifyApiComponent {}
