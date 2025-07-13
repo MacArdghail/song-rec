@@ -5,6 +5,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { SendComponent } from './playlist/send/send.component';
 import { authGuard } from './auth.guard';
 import { playlistAuthGuard } from './playlist-auth.guard';
+import { SpotifyApiComponent } from './spotify-api/spotify-api.component';
 export const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,10 @@ export const routes: Routes = [
     path: 'me',
     component: MeComponent,
     // canActivate: [authGuard],
+  },
+  {
+    path: 'spotify-403',
+    component: SpotifyApiComponent,
   },
   {
     path: ':id',
