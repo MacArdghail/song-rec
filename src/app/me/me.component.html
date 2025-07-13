@@ -6,7 +6,7 @@
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': showReceived }"
       >
-        <span style="color: #222222">RECEIVED</span>
+        <span>RECEIVED</span>
       </button>
       <span class="divider"> | </span>
 
@@ -15,7 +15,7 @@
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': !showReceived }"
       >
-        <span style="color: #222222"> SENT</span>
+        <span> SENT</span>
       </button>
     </div>
     <div *ngIf="loading" class="container-x"></div>
@@ -24,7 +24,7 @@
         *ngIf="showReceived"
         [playlists]="playlists"
       ></app-playlists>
-      <app-sent *ngIf="!showReceived" [sentRecs]="recs"></app-sent>
+      <app-sent *ngIf="!showReceived" [sentRecs]="sentRecs"></app-sent>
     </div>
   </div>
 </body>

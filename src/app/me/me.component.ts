@@ -15,12 +15,16 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 })
 export class MeComponent {
   apiUrl = environment.apiBaseUrl;
-  showReceived: boolean = true;
+  showReceived: boolean = false;
   playlists: any[] = [];
-  recs: any[] = [];
+  sentRecs: any[] = [];
   loading: boolean = true;
 
   private spotify = inject(SpotifyService);
+
+  ngOnInit() {
+    this.loadData();
+  }
 
   view(display: string) {
     if (display === 'recieved') {
@@ -30,15 +34,11 @@ export class MeComponent {
     }
   }
 
-  ngOnInit() {
-    this.loadData();
-  }
-
   loadData() {
     this.spotify.fetchPlaylistsAndSentRecs().subscribe({
       next: (result) => {
         this.playlists = result.playlists;
-        this.recs = result.recs;
+        this.sentRecs = result.recs;
         this.loading = false;
       },
       error: (err) => {
