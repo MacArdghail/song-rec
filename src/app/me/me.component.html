@@ -6,16 +6,16 @@
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': showReceived }"
       >
-        RECEIVED
+        <span style="color: #333333">RECEIVED</span>
       </button>
-      <span class="divider"> | </span>
+      <span class="divider" style="color: #333333"> | </span>
 
       <button
         (click)="view('sent')"
         class="toggle-view-btn"
         [ngClass]="{ 'toggle-view-btn-active': !showReceived }"
       >
-        SENT
+        <span style="color: #333333"> SENT</span>
       </button>
     </div>
 

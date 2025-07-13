@@ -148,6 +148,7 @@
   font-size: 1.4rem;
   text-align: left;
   width: 100%;
+  color: #333333;
 }
 
 .create-btn {
@@ -157,7 +158,7 @@
   font-size: 1.4rem;
   border-radius: 0.4rem;
   transition: transform 0.2s ease;
-  /* margin-left: 0.4rem; */
+  margin-left: 0.4rem;
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
   cursor: pointer;
