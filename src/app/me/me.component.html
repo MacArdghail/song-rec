@@ -65,49 +65,7 @@
     </div>
 
     <div *ngIf="!loading">
-      <!-- View to show recommendations you've sent-->
-      <div *ngIf="!showReceived && recs.length === 0" class="container-x">
-        <h1 style="text-align: center">
-          You haven't recommended any tracks to anyone 🥺
-        </h1>
-      </div>
-      <div *ngIf="!showReceived && recs.length !== 0">
-        <h1 class="title">Recommendations you've sent</h1>
-
-        <div *ngFor="let rec of recs; let i = index" class="recs-container">
-          <div class="track-row">
-            <div class="index">{{ i + 1 }}</div>
-            <div class="track-info">
-              <img class="album-cover" [src]="rec.track_img" />
-              <div class="track-text">
-                <div class="track-title">
-                  {{ rec.track_name | truncate : 18 }}
-                </div>
-                <div class="track-artist">{{ rec.artist_name }}</div>
-              </div>
-            </div>
-            <div class="message">
-              “<em>{{ rec.message }}</em
-              >”
-            </div>
-            <div class="sender-info link">
-              <a
-                [routerLink]="['/', rec.playlist_id]"
-                style="display: flex; align-items: center"
-              >
-                <img
-                  class="sender-avatar"
-                  [src]="rec.profile_img"
-                  alt="{{ rec.display_name }}"
-                />
-                <span class="sender-name">{{ rec.display_name }}</span>
-              </a>
-            </div>
-
-            <div>{{ rec.emoji }}</div>
-          </div>
-        </div>
-      </div>
+      <app-sent *ngIf="!showReceived" [sentRecs]="recs"></app-sent>
     </div>
   </div>
 </body>

@@ -5,8 +5,10 @@ import { RouterModule, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { forkJoin } from 'rxjs';
 import { TruncatePipe } from '../truncate.pipe';
+import { SentComponent } from './sent/sent.component';
+import { SpotifyService } from '../shared/spotify.service';
+
 @Component({
   selector: 'app-me',
   standalone: true,
@@ -16,6 +18,7 @@ import { TruncatePipe } from '../truncate.pipe';
     CommonModule,
     ModalComponent,
     TruncatePipe,
+    SentComponent,
   ],
   templateUrl: './me.component.html',
   styleUrl: './me.component.css',
@@ -28,6 +31,7 @@ export class MeComponent {
   recs: any[] = [];
   loading: boolean = true;
   private http = inject(HttpClient);
+  private spotify = inject(SpotifyService);
 
   showDialog() {
     this.visible = true;
@@ -46,21 +50,13 @@ export class MeComponent {
   }
 
   loadData() {
-    forkJoin({
-      playlists: this.http.get<any>(`${this.apiUrl}/playlist/get_playlists`, {
-        withCredentials: true,
-      }),
-      recs: this.http.get<any>(`${this.apiUrl}/recommendation/yours`, {
-        withCredentials: true,
-      }),
-    }).subscribe({
+    this.spotify.fetchPlaylistsAndSentRecs().subscribe({
       next: (result) => {
         this.playlists = result.playlists;
         this.recs = result.recs;
         this.loading = false;
       },
       error: (err) => {
-        console.log('Error loading data in /me', err);
         this.loading = false;
       },
     });

@@ -13,6 +13,7 @@ import { of, forkJoin, EMPTY } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { SendComponent } from './send/send.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 interface PlaylistDetails {
   owner_name: string;
@@ -23,7 +24,13 @@ interface PlaylistDetails {
 @Component({
   selector: 'app-playlist',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ToastModule, SendComponent],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    ToastModule,
+    SendComponent,
+    TruncatePipe,
+  ],
   providers: [MessageService],
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.css',

@@ -176,11 +176,6 @@ button div:hover img {
   max-width: 92rem;
   margin: 0 auto;
 }
-/* 
-a {
-  color: #007bff;
-  text-decoration: none;
-} */
 
 .recs-container {
   display: flex;
@@ -194,74 +189,6 @@ button {
   background: transparent;
   border: none;
   border-bottom: 0.2rem solid transparent;
-}
-
-.track-row {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 0.5rem 0;
-  font-family: sans-serif;
-}
-
-.index {
-  width: 2rem;
-  text-align: center;
-  font-weight: bold;
-}
-
-.track-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-width: 24rem;
-  max-width: 24rem;
-}
-
-.album-cover {
-  height: 6rem;
-  width: 6rem;
-  object-fit: cover;
-  border-radius: 0.4rem;
-}
-
-.track-text .track-title {
-  font-weight: 700;
-  font-size: 1.6rem;
-}
-
-.track-text .track-artist {
-  color: gray;
-  font-size: 1.2rem;
-}
-
-.sender-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-width: 18rem;
-}
-
-.sender-avatar {
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.sender-name {
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-left: 0.6rem;
-}
-
-.message {
-  font-style: italic;
-  font-size: 1.3rem;
-  color: #333;
-  flex-grow: 1;
-  min-width: 18rem;
-  max-width: 18rem;
 }
 
 .title {
@@ -301,80 +228,9 @@ button {
     width: 16rem;
     height: 16rem;
   }
-
-  .playlist-name {
-    width: 16rem;
-    font-size: 1.2rem;
-  }
-  .index {
-    width: 1rem;
-  }
-  .container {
-    padding: 0 2.4rem;
-    max-width: 92rem;
-    margin: 0 auto;
-  }
-
-  .title {
-    font-size: 1.8rem;
-    margin-top: 1.4rem;
-    margin-bottom: 1.4rem;
-  }
-
-  .track-row {
-    gap: 1rem;
-    padding: 0.25rem 0;
-  }
-
-  .track-info {
-    gap: 0.5rem;
-    min-width: 16rem;
-    max-width: 16rem;
-  }
-
-  .album-cover {
-    height: 4rem;
-    width: 4rem;
-    object-fit: cover;
-    border-radius: 0.4rem;
-  }
-
-  .track-text .track-title {
-    font-size: 1.2rem;
-  }
-
-  .track-text .track-artist {
-    font-size: 1rem;
-  }
-
-  .message {
-    font-size: 1.2rem;
-    min-width: 14rem;
-    max-width: 14rem;
-  }
 }
 
 @media (max-width: 35rem) {
-  .container {
-    padding: 0 1.6rem;
-    max-width: 92rem;
-    margin: 0 auto;
-  }
-
-  .title {
-    font-size: 1.4rem;
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .track-row {
-    gap: 0.5rem;
-    padding: 0.25rem 0;
-  }
-
-  .rec-text {
-    display: none;
-  }
   .playlist-container {
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   }
@@ -387,28 +243,13 @@ button {
     width: 14rem;
   }
 
-  .playlist-img,
-  .playlist-img-container {
+  .playlist-img-container,
+  .playlist-img {
     width: 14rem;
     height: 14rem;
   }
 
-  .playlist-name {
-    width: 14rem;
-    font-size: 1rem;
-  }
-
-  .track-text .track-title {
-    font-size: 1rem;
-  }
-
-  .track-text .track-artist {
-    font-size: 0.8rem;
-  }
-
-  .message {
-    font-size: 1rem;
-    min-width: 14rem;
-    max-width: 14rem;
+  .create-btn {
+    margin-left: 0.8rem;
   }
 }
