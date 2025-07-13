@@ -292,11 +292,19 @@ button:active {
   }
 }
 
-@media (max-width: 60rem) {
+@media (max-width: 35rem) {
   .playlist-img {
     width: 14rem;
     height: 14rem;
     border-radius: 0.25rem;
+  }
+
+  .track-text .track-title {
+    font-size: 1.1rem;
+  }
+
+  .track-text .track-artist {
+    font-size: 0.8rem;
   }
 
   .playlist-title p {

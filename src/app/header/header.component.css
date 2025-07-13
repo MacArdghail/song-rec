@@ -39,3 +39,9 @@ img {
   object-fit: cover;
   cursor: pointer;
 }
+
+@media (max-width: 60rem) {
+  .header {
+    padding: 0 2.4rem;
+  }
+}
