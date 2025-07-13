@@ -211,6 +211,10 @@ button {
 }
 
 @media (max-width: 60rem) {
+  .container {
+    padding: 0 1.6rem;
+  }
+
   .playlist-container {
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   }
