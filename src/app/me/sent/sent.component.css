@@ -30,21 +30,21 @@ h1 {
 .message-and-playlist {
   border-top: 1px solid #eee;
   padding-top: 1rem;
-  min-width: 36rem;
-  max-width: 36rem;
+  min-width: 34rem;
+  max-width: 34rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
 .message {
   font-size: 1.4rem;
-  width: 38rem;
+  width: 36rem;
 }
 
 .sent-to {
   /* font-size: 1.4rem; */
   margin-top: -0.75rem;
-  width: 38rem;
+  width: 36rem;
   padding-left: 1rem;
 }
 
@@ -54,8 +54,8 @@ h1 {
   border-radius: 0.6rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  min-width: 38rem;
-  max-width: 38rem;
+  min-width: 36rem;
+  max-width: 36rem;
   width: 100%;
   display: flex;
   margin: 0 auto;
@@ -65,7 +65,7 @@ h1 {
 
 .playlist-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(38rem, 1fr));
   gap: 2.4rem;
   min-height: 34rem;
 }
@@ -81,8 +81,8 @@ h1 {
 
 .track-info {
   /* gap: 1rem; */
-  min-width: 38rem;
-  max-width: 38rem;
+  min-width: 36rem;
+  max-width: 36rem;
   padding-left: 1rem;
 }
 
