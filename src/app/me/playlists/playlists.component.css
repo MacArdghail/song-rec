@@ -1,0 +1,141 @@
+.playlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  min-height: 34rem;
+}
+
+.playlists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  height: 18rem;
+}
+
+.playlist {
+  width: 18rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 1rem;
+}
+
+.playlist-btn {
+  width: 17rem;
+  border-radius: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.playlist-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 2.4rem;
+  min-height: 34rem;
+}
+
+.playlists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  height: 18rem;
+}
+
+.playlist {
+  width: 18rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 1rem;
+}
+
+.playlist-btn {
+  width: 18rem;
+  border-radius: 0.4rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.playlist-img-container {
+  width: 18rem;
+  height: 17rem;
+  overflow: hidden;
+  border-radius: 0.4rem;
+}
+
+.playlist-img {
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.playlist-name {
+  padding: 0.4rem;
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: left;
+  width: 100%;
+  color: #222222;
+}
+
+.create-btn {
+  background: black;
+  color: white;
+  padding: 0.8rem;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  transition: transform 0.2s ease;
+  margin-left: 0.4rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  transform: scale(0.9);
+}
+
+@media (max-width: 60rem) {
+  .container {
+    padding: 0 1.6rem;
+  }
+
+  .playlist-container {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  }
+
+  .playlist {
+    width: 15rem;
+  }
+
+  .playlist-btn {
+    width: 15rem;
+  }
+
+  .playlist-img-container,
+  .playlist-img {
+    width: 15rem;
+    height: 15rem;
+  }
+}

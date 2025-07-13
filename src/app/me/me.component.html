@@ -18,57 +18,13 @@
         <span style="color: #222222"> SENT</span>
       </button>
     </div>
-
     <div *ngIf="loading" class="container-x"></div>
     <div *ngIf="!loading">
-      <div *ngIf="showReceived">
-        <button
-          *ngIf="playlists.length !== 0"
-          (click)="showDialog()"
-          class="create-btn"
-        >
-          <span>CREATE <span class="rec-text">REC</span> PLAYLIST</span>
-        </button>
-        <div *ngIf="playlists.length === 0" class="container-x">
-          <h1 style="text-align: center">
-            You don't have any recommendation playlists open
-          </h1>
-          <button (click)="showDialog()" class="create-btn">
-            <span>CREATE PLAYLIST</span>
-          </button>
-        </div>
-        <div *ngIf="playlists.length !== 0" class="playlist-container">
-          <div
-            *ngFor="let playlist of playlists"
-            class="playlist"
-            style="margin: 0 auto"
-          >
-            <button [routerLink]="['/', playlist.id]" class="playlist-btn">
-              <div class="playlist-img-container">
-                <img
-                  class="playlist-img"
-                  [src]="
-                    playlist.image_url
-                      ? playlist.image_url
-                      : 'https://community.spotify.com/t5/image/serverpage/image-id/25294i2836BD1C1A31BDF2?v=v2'
-                  "
-                  alt="Playlist cover"
-                />
-              </div>
-              <p class="playlist-name">
-                {{ playlist.name }}
-              </p>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="!loading">
+      <app-playlists
+        *ngIf="showReceived"
+        [playlists]="playlists"
+      ></app-playlists>
       <app-sent *ngIf="!showReceived" [sentRecs]="recs"></app-sent>
     </div>
   </div>
 </body>
-
-<!-- MODAL POPUP-->
-<app-modal [(visible)]="visible"></app-modal>

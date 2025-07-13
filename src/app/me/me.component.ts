@@ -1,41 +1,26 @@
 import { Component, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { RouterModule, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { ModalComponent } from '../modal/modal.component';
-import { TruncatePipe } from '../truncate.pipe';
 import { SentComponent } from './sent/sent.component';
 import { SpotifyService } from '../shared/spotify.service';
+import { PlaylistsComponent } from './playlists/playlists.component';
 
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [
-    RouterModule,
-    ButtonModule,
-    CommonModule,
-    ModalComponent,
-    TruncatePipe,
-    SentComponent,
-  ],
+  imports: [ButtonModule, CommonModule, SentComponent, PlaylistsComponent],
   templateUrl: './me.component.html',
   styleUrl: './me.component.css',
 })
 export class MeComponent {
   apiUrl = environment.apiBaseUrl;
   showReceived: boolean = true;
-  visible: boolean = false;
   playlists: any[] = [];
   recs: any[] = [];
   loading: boolean = true;
-  private http = inject(HttpClient);
-  private spotify = inject(SpotifyService);
 
-  showDialog() {
-    this.visible = true;
-  }
+  private spotify = inject(SpotifyService);
 
   view(display: string) {
     if (display === 'recieved') {
