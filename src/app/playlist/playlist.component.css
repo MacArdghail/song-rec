@@ -78,10 +78,6 @@
   opacity: 0.3;
 }
 
-button div:hover img {
-  transform: scale(1.1);
-}
-
 button {
   font-size: 2rem;
   cursor: pointer;
@@ -92,32 +88,6 @@ button {
 
 button:active {
   border-bottom: 0.2rem solid black;
-}
-
-.reaction-wrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.reaction-button {
-  font-size: 2rem;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-}
-
-.reaction-popover {
-  position: absolute;
-  top: -4rem;
-  background: white;
-  border-radius: 1.6rem;
-  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.15);
-  display: flex;
-  gap: 0.4rem;
-  padding: 0.6rem 0.8rem;
-  z-index: 10;
 }
 
 .emoji-button {
@@ -148,27 +118,6 @@ button:active {
   font-family: sans-serif;
 }
 
-.index {
-  width: 2rem;
-  text-align: center;
-  font-weight: bold;
-}
-
-.track-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-width: 24rem;
-  max-width: 24rem;
-}
-
-.album-cover {
-  height: 6rem;
-  width: 6rem;
-  object-fit: cover;
-  border-radius: 0.4rem;
-}
-
 .track-text .track-title {
   font-weight: 700;
   font-size: 1.6rem;
@@ -177,20 +126,6 @@ button:active {
 .track-text .track-artist {
   color: gray;
   font-size: 1.2rem;
-}
-
-.sender-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-width: 18rem;
-}
-
-.sender-avatar {
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .sender-name {
