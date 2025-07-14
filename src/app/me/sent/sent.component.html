@@ -36,7 +36,8 @@
           <span style="font-size: 1.4rem" style="font-weight: bold"
             >SENT TO:</span
           >
-          Fionn McArdle's<a
+
+          {{ rec.owner_name }}'s<a
             [routerLink]="['/', rec.playlist_id]"
             style="
               display: inline;
@@ -44,9 +45,8 @@
               text-decoration: none;
               color: #007bff;
             "
-            class="recommend-text"
           >
-            <span class="sender-name">"Send french songs"</span>
+            <span class="sender-name">"{{ rec.playlist_name }}"</span>
           </a>
           playlist
         </p>

@@ -105,6 +105,7 @@ exports.getPlaylists = async (req, res, next) => {
       }),
     );
     res.json(playlistsWithDetails);
+    // res.status(200).json({ health: "ok" });
   } catch (err) {
     next(err);
   }

@@ -93,22 +93,31 @@ exports.spotifyCallback = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-      secure: true,
-      sameSite: "None",
-      domain: "song-rec.me",
-      path: "/",
+      // maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      // secure: true,
+      // sameSite: "None",
+      // domain: "song-rec.me",
+      // path: "/",
     });
 
     if (state) {
-      return res.redirect(`https://song-rec.me/${state}`);
+      return res.redirect(`http://localhost:4200/${state}`);
     }
-    return res.redirect("https://song-rec.me/me");
+    return res.redirect("http://localhost:4200/me");
   } catch (err) {
     if (err.response) {
+      if (err.response.status === 403) {
+        console.error(
+          "User has denied required permissions:",
+          err.response.data,
+        );
+        return res.redirect("http://localhost:4200/spotify-403");
+      }
       console.error("Spotify token error:", err.response.data);
+      return res.redirect("http://localhost:4200/spotify-403");
     } else {
       console.error("Unexpected error:", err.message);
+      return res.redirect("https://song-rec.me/spotify-403");
     }
     next(err);
   }

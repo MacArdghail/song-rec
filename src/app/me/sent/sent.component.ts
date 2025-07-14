@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TruncatePipe } from '../../truncate.pipe';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sent.component.html',
   styleUrl: './sent.component.css',
 })
-export class SentComponent {
+export class SentComponent implements OnInit {
   @Input() sentRecs: any[] = [];
+
+  ngOnInit(): void {
+    console.log('$$$' + this.sentRecs);
+  }
 }

@@ -107,17 +107,16 @@ exports.sendRecommendation = async (req, res) => {
     });
 
     try {
-      // await sendEmail({
-      //   to: recipient.email,
-      //   subject: `${sender.display_name} sent you a song 🎶`,
-      //   html: `
-      //           <p>${sender.display_name} sent you song: ${track_id}</p>
-      //           <p>With message: ${message}</p>
-      //           <p><a href="https://open.spotify.com/track/${track_id}" target="_blank">Listen on Spotify</a></p>
-      //           <hr />
-      //           <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
-      //       `,
-      // });
+      await sendEmail({
+        to: recipient.email,
+        subject: `${sender.display_name} sent you a song 🎶`,
+        html: `
+                <p>${sender.display_name} sent you song: <a href="https://open.spotify.com/track/${track_id}" target="_blank">Listen on Spotify</a></p>
+                <p>With message: ${message}</p>
+                <hr />
+                <p style="font-size: 0.85em; color: #777;">This email was sent via song-rec.me</p>
+            `,
+      });
       console.log("Email sent successfully");
     } catch (err) {
       console.error("Failed to send email", err);
@@ -201,7 +200,68 @@ exports.getYourRecommendations = async (req, res) => {
       .find({ sender_spotify_id: spotify_id })
       .toArray();
 
-    res.status(200).json(recommendations);
+    const user = await db.collection("spotify_users").findOne({ spotify_id });
+
+    let recs;
+
+    try {
+      recs = await Promise.all(
+        recommendations.map(async (rec) => {
+          const response = await axios.get(
+            `https://api.spotify.com/v1/playlists/${rec.playlist_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${user.access_token}`,
+                "Content-Type": "application/json",
+              },
+            },
+          );
+          return {
+            playlist_name: response.data.name,
+            owner_name: response.data.owner?.display_name || "Unknown",
+            ...rec,
+          };
+        }),
+      );
+    } catch (err) {
+      console.log("Access token may be expired. Refreshing...");
+      if (!user.refresh_token) {
+        return res.status(401).json({ message: "Refresh token missing" });
+      }
+
+      const accessToken = await refreshAccessToken(
+        spotify_id,
+        user.refresh_token,
+      );
+
+      try {
+        recs = await Promise.all(
+          recommendations.map(async (rec) => {
+            const response = await axios.get(
+              `https://api.spotify.com/v1/playlists/${rec.playlist_id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json",
+                },
+              },
+            );
+            return {
+              playlist_name: response.data.name,
+              owner_name: response.data.owner?.display_name || "Unknown",
+              ...rec,
+            };
+          }),
+        );
+      } catch (retryErr) {
+        console.log("Spotify API error after retry:", retryErr);
+        return res
+          .status(500)
+          .json({ message: "Failed to fetch playlist info after retry" });
+      }
+    }
+
+    return res.status(200).json(recs);
   } catch (err) {
     console.error("Error in getYourRecommendations", err);
     res.status(500).json({ message: "Failed to retrieve recommendations" });

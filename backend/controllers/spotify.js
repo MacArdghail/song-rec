@@ -7,7 +7,7 @@ exports.createPlaylist = async (req, res, next) => {
     const spotify_id = req.user.spotify_id;
     let { name, description } = req.body;
 
-    name = name || "send my recommendations ✌️";
+    name = name || "send me recommendations ✌️";
     description = description || "";
 
     if (
