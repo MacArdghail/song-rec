@@ -21,7 +21,7 @@
             {{ playlistInfo.name }}
           </p>
           <button (click)="copyPlaylistLink()" title="Copy Link">
-            <span style="font-size: 1.8rem" class="pi pi-copy"></span>
+            <span class="playlist-title" class="pi pi-copy"></span>
           </button>
         </div>
         <p class="playlist-info">
@@ -58,68 +58,133 @@
     </div>
   </div>
 
-  <h1 class="title">Recommendations</h1>
+  <div class="container">
+    <div>
+      <h1 class="title">Recommendations</h1>
+    </div>
+    <br />
+    <div *ngIf="playlistRecs.length === 0" class="container-y">
+      <h1>
+        You haven’t received any recommendations <i>yet</i> <br />
+        Copy your playlist link and share with friends to start getting some!
+        <button (click)="copyPlaylistLink()" title="Copy Link">
+          <span
+            style="font-size: 1.4rem; color: black"
+            class="pi pi-copy"
+          ></span>
+        </button>
+      </h1>
+    </div>
 
-  <div *ngIf="playlistRecs.length === 0" class="container-y">
-    <h1>
-      You haven’t received any recommendations <i>yet</i> <br />
-      Copy your playlist link and share with friends to start getting some!
-      <button (click)="copyPlaylistLink()" title="Copy Link">
-        <span style="font-size: 1.8rem" class="pi pi-copy"></span>
-      </button>
-    </h1>
-  </div>
+    <div class="playlist-container-2">
+      <div
+        *ngFor="let rec of playlistRecs; let i = index"
+        style="margin: 0 auto"
+      >
+        <div class="track-row">
+          <div style="display: flex" class="emoji">
+            <button
+              [ngStyle]="{
+                'font-size': '1.4rem'
+              }"
+              [ngClass]="rec.emoji === '👍' ? 'active' : 'inactive'"
+              (click)="react(rec.recommendation_id, '👍')"
+            >
+              👍
+            </button>
+            <button
+              [ngStyle]="{
+                'font-size': '1.4rem'
+              }"
+              [ngClass]="rec.emoji === '👎' ? 'active' : 'inactive'"
+              (click)="react(rec.recommendation_id, '👎')"
+            >
+              👎
+            </button>
+          </div>
+          <div>
+            <div class="track-info">
+              <img class="album-cover" [src]="rec.track_img" />
+              <div class="track-text">
+                <div class="track-title">
+                  {{ rec.track_name | truncate : 22 }}
+                </div>
+                <div class="track-artist">{{ rec.artist_name }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="message-and-playlist">
+            <div>
+              <span style="font-size: 1.4rem" style="font-weight: bold"
+                >MESSAGE:</span
+              >
+              <span class="message" class="recommend-text">
+                "{{ rec.message.trim() }}"</span
+              >
+            </div>
+          </div>
 
-  <div *ngFor="let rec of playlistRecs; let i = index" class="recs">
-    <div class="track-row">
-      <div class="index">{{ i + 1 }}</div>
-      <div class="track-info">
-        <img class="album-cover" [src]="rec.track_img" />
-        <div class="track-text">
-          <div class="track-title">{{ rec.track_name | truncate : 18 }}</div>
-          <div class="track-artist">{{ rec.artist_name }}</div>
+          <!-- Sent To Section -->
+          <p class="sent-to">
+            <span style="font-size: 1.4rem" style="font-weight: bold"
+              >SENT BY:</span
+            >
+
+            {{ rec.display_name }} on {{ rec.sentAt | date : "MMMM d, y" }}
+          </p>
         </div>
       </div>
-      <div class="sender-info">
-        <img
-          class="sender-avatar"
-          [src]="rec.profile_img"
-          alt="Fionn McArdle"
-        />
-        <span class="sender-name">{{ rec.display_name }}</span>
-      </div>
-
-      <div class="message">
-        “<em>{{ rec.message }}</em
-        >”
-      </div>
-      <div style="font-style: normal">
-        {{ rec.sentAt | date : "MMMM d, y" }}
-      </div>
-      <div style="display: flex">
-        <button
-          [ngStyle]="{
-            'font-size': '1.4rem'
-          }"
-          [ngClass]="rec.emoji === '👍' ? 'active' : 'inactive'"
-          (click)="react(rec.recommendation_id, '👍')"
-        >
-          👍
-        </button>
-        <button
-          [ngStyle]="{
-            'font-size': '1.4rem'
-          }"
-          [ngClass]="rec.emoji === '👎' ? 'active' : 'inactive'"
-          (click)="react(rec.recommendation_id, '👎')"
-        >
-          👎
-        </button>
-      </div>
     </div>
+    <!-- <div *ngFor="let rec of playlistRecs; let i = index" class="recs">
+      <div class="track-row">
+        <div class="index">{{ i + 1 }}</div>
+        <div class="track-info">
+          <img class="album-cover" [src]="rec.track_img" />
+          <div class="track-text">
+            <div class="track-title">{{ rec.track_name | truncate : 18 }}</div>
+            <div class="track-artist">{{ rec.artist_name }}</div>
+          </div>
+        </div>
+        <div class="sender-info">
+          <img
+            class="sender-avatar"
+            [src]="rec.profile_img"
+            alt="Fionn McArdle"
+          />
+          <span class="sender-name">{{ rec.display_name }}</span>
+        </div>
+
+        <div class="message">
+          “<em>{{ rec.message }}</em
+          >”
+        </div>
+        <div style="font-style: normal">
+          {{ rec.sentAt | date : "MMMM d, y" }}
+        </div>
+        <div style="display: flex">
+          <button
+            [ngStyle]="{
+              'font-size': '1.4rem'
+            }"
+            [ngClass]="rec.emoji === '👍' ? 'active' : 'inactive'"
+            (click)="react(rec.recommendation_id, '👍')"
+          >
+            👍
+          </button>
+          <button
+            [ngStyle]="{
+              'font-size': '1.4rem'
+            }"
+            [ngClass]="rec.emoji === '👎' ? 'active' : 'inactive'"
+            (click)="react(rec.recommendation_id, '👎')"
+          >
+            👎
+          </button>
+        </div>
+      </div>
+    </div> -->
   </div>
 </div>
-
 <div *ngIf="exists && !isOwner">
   <app-send
     *ngIf="playlistDetails"
