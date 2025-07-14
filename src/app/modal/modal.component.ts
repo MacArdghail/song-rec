@@ -76,7 +76,7 @@ export class ModalComponent {
     const params = new HttpParams()
       .set('playlist_id', this.playlistId)
       .set('track_id', this.id)
-      .set('message', this.value!);
+      .set('message', this.value || '');
 
     this.http
       .post(`${this.apiUrl}/recommendation/send`, null, {

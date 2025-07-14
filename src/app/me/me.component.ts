@@ -15,7 +15,7 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 })
 export class MeComponent {
   apiUrl = environment.apiBaseUrl;
-  showReceived: boolean = false;
+  showReceived: boolean = true;
   playlists: any[] = [];
   sentRecs: any[] = [];
   loading: boolean = true;

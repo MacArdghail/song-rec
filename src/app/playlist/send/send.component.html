@@ -6,14 +6,21 @@
       <div class="bio-text">
         Find a song you'd like to <br />
         <span class="recommend-text">recommend</span>
-        to {{ playlistDetails.owner_name }} for their "{{
-          playlistDetails.playlist_name
-        }}" playlist<span style="color: #18ac4c">.</span>
+        to
+        <span style="color: #18ac4c">{{ playlistDetails.owner_name }}</span> for
+        their
+        <span class="recommend-text"
+          >"{{ playlistDetails.playlist_name }}"</span
+        >
+        playlist<span style="color: #18ac4c">.</span>
       </div>
 
       <img
         style="height: 50px; width: 50px; border-radius: 50%"
-        [src]="playlistDetails.owner_profile_img"
+        [src]="
+          playlistDetails.owner_profile_img ??
+          'https://cdna.artstation.com/p/assets/images/images/084/124/296/large/matthew-blank-profile-photo-1.jpg?1737590038'
+        "
       />
     </div>
 
