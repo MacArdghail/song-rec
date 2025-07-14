@@ -201,3 +201,91 @@ html {
     max-width: 15rem;
   }
 }
+
+h1 {
+  text-align: center;
+}
+
+.emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.6rem;
+  background-color: #f9f9f9;
+  padding: 5px;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.album-cover {
+  height: 8rem;
+  width: 8rem;
+}
+
+.track-row {
+  flex-direction: column;
+}
+
+.message-and-playlist {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+  min-width: 34rem;
+  max-width: 34rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.message {
+  font-size: 1.4rem;
+  width: 36rem;
+}
+
+.sent-to {
+  /* font-size: 1.4rem; */
+  margin-top: -0.75rem;
+  width: 36rem;
+  padding-left: 1rem;
+}
+
+.track-row {
+  background: #f9f9f9;
+  margin-top: 1rem;
+  border-radius: 0.6rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-width: 36rem;
+  max-width: 36rem;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 1.6rem;
+  position: relative;
+}
+
+.track-text .track-title {
+  font-size: 2rem;
+}
+
+.track-text .track-artist {
+  color: gray;
+  font-size: 1.4rem;
+}
+
+.track-info {
+  /* gap: 1rem; */
+  min-width: 36rem;
+  max-width: 36rem;
+  padding-left: 1rem;
+}
+
+.recommend-text {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  font-style: italic;
+}
