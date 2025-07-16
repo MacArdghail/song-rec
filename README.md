@@ -1,27 +1,51 @@
-# Frontend
+# song-rec.me
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+**Your non-algorithmic way of getting Spotify recommendations**  
+_(Or at least, that was the idea.)_
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ⚠️ Important Note
 
-## Code scaffolding
+As of May 2025, Spotify’s API changes make it impossible for an app like this to be publicly accessible.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## What is it?
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**song-rec.me** was built around a simple but personal concept:
 
-## Running unit tests
+1. A Spotify user logs in and creates a playlist.
+2. The app generates a **shareable link** tied to that playlist.
+3. Friends can visit the link, search for songs, and "send" a recommendation.
+4. When a recommendation is submitted:
+   - The selected song is added to the user’s playlist.
+   - The user receives an **email notification**.
+   - The recommendation appears on their dashboard at song-rec.me.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Isn’t This Just a Collaborative Playlist?
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Not quite:
 
-## Further help
+- **Collaborative playlists** are visible to all contributors and, if public, to anyone.
+- There's **no privacy** between the sender and the playlist owner.
+- Spotify does **not notify** you when a song is added.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+With **song-rec.me**, the experience is:
+
+- **Private** — only the playlist owner sees the recommendations.
+- **One-to-one** — it's between the sender and the recipient only.
+- **Notified** — the owner gets an email every time a new song is sent.
+
+---
+
+## Reflection
+
+Although the project couldn’t be deployed publicly due to Spotify’s platform restrictions, I believe this is a feature Spotify could—and should—build in natively.
+
+Imagine having a playlist on your Spotify profile where friends (or only followers) can suggest songs, and you get notified each time.  
+It would be a fun, personal, and sticky way to share music—and would likely increase app engagement and retention.
+
+---
