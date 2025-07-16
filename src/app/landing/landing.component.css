@@ -2,7 +2,6 @@
   padding: 0 4.8rem;
   max-width: 92rem;
   margin: 0 auto;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
 }
@@ -13,16 +12,9 @@
 
 .grid {
   display: grid;
-  column-gap: 6.4rem;
-  row-gap: 9.6rem;
-
-  /* margin-bottom: 9.6rem; */
+  column-gap: 5rem;
+  row-gap: 6.6rem;
 }
-
-/* .grid:last-child {
-  margin-bottom: 0;
-} */
-
 .grid:not(:last-child) {
   margin-bottom: 9.6rem;
 }
@@ -36,14 +28,14 @@
 }
 
 .step-number {
-  font-size: 6.4rem;
+  font-size: 5.4rem;
   font-weight: 600;
   color: #ddd;
   margin-bottom: 1.2rem;
 }
 
 .step-description {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   line-height: 1.4;
 }
 
@@ -54,7 +46,7 @@
   justify-content: center;
 }
 .step-img {
-  width: 200px;
+  width: 175px;
 }
 
 .heading-primary,
@@ -78,7 +70,7 @@
 }
 
 .heading-tertiary {
-  font-size: 2.2rem;
+  font-size: 2rem;
   line-height: 1;
   margin-bottom: 1.2rem;
 }
