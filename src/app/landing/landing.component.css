@@ -2,8 +2,93 @@
   padding: 0 4.8rem;
   max-width: 92rem;
   margin: 0 auto;
-  height: 60vh;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
+}
+
+.section-how {
+  padding: 9.6rem 0;
+}
+
+.grid {
+  display: grid;
+  column-gap: 6.4rem;
+  row-gap: 9.6rem;
+
+  /* margin-bottom: 9.6rem; */
+}
+
+/* .grid:last-child {
+  margin-bottom: 0;
+} */
+
+.grid:not(:last-child) {
+  margin-bottom: 9.6rem;
+}
+
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--center-v {
+  align-items: center;
+}
+
+.step-number {
+  font-size: 6.4rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 1.2rem;
+}
+
+.step-description {
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+.step-img-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-img {
+  width: 200px;
+}
+
+.heading-primary,
+.heading-secondary,
+.heading-tertiary {
+  font-weight: 700;
+  color: #333;
+  letter-spacing: -0.5px;
+}
+
+.heading-primary {
+  font-size: 5.2rem;
+  line-height: 1.05;
+  margin-bottom: 3.2rem;
+}
+
+.heading-secondary {
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 7.2rem;
+}
+
+.heading-tertiary {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 1.2rem;
+}
+
+.subheading {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #18ac4c;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.75px;
 }
