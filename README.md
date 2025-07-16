@@ -43,9 +43,4 @@ With **song-rec.me**, the experience is:
 
 ## Reflection
 
-Although the project couldn’t be deployed publicly due to Spotify’s platform restrictions, I believe this is a feature Spotify could—and should—build in natively.
-
-Imagine having a playlist on your Spotify profile where friends (or only followers) can suggest songs, and you get notified each time.  
-It would be a fun, personal, and sticky way to share music—and would likely increase app engagement and retention.
-
----
+Although this website ultimately failed, I still believe it would be a great feature for Spotify to add—a profile-based playlist where others (perhaps only friends) can add songs, and the owner gets notified. This would definitely bring users back to the app and increase retention.
